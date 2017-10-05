@@ -1,64 +1,58 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Home</title>
-    <!--Let browser know website is optimized for mobile-->
+
+    <title>Módulo de autenticación biométrica</title>
+    
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/font-awesome.min.css">
-    <!-- Compiled and minified CSS -->
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
+    
     <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
-    <!--  Materialize Scripts-->
-    <!--  SweetAleert2-->
-    <!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
-    <!-- First, include the Webcam.js JavaScript Library -->
+    
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-    <script src="js/init.js"></script>
-    <!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+</head>
 
-  </head>
-  <body>
-    <div class="navbar-fixed">
+<body>
+  <div class="navbar-fixed"><!--Barra de navegacion-->
     <nav class="white" role="navigation">
       <div class="nav-wrapper container">
         <ul id="slide-out" class="side-nav">
-          <li><a href=".">Home</a></li>
-          <li><a href="captura.html">Registro</a></li>
+          <li class="active"><a href=".">Home</a></li>
+          <li><a href="registro.html">Registro</a></li>
           <li><a href="reconocimiento.html">Ingreso</a></li>
         </ul>
         <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
         <a id="logo-container" href="." class="brand-logo center"><i class="medium material-icons">fingerprint</i></a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="captura.html">Registro</a></li>
+          <li><a href="registro.html">Registro</a></li>
           <li><a href="reconocimiento.html">Ingreso</a></li>
         </ul>
         <ul id="nav-mobile" class="side-nav">
-          <li><a href="captura.html">Registro</a></li>
+          <li><a href="registro.html">Registro</a></li>
           <li><a href="reconocimiento.html">Ingreso</a></li>
         </ul>
       </div>
     </nav>
-    </div>
+  </div>
 
-<div id="index-banner" class="parallax-container">
+  <div id="index-banner" class="parallax-container"><!-- Banner -->
     <div class="section no-pad-bot">
       <div class="container">
         <br><br>
          <div class="row center">
-        <h3 class="header col s12 teal-text text-lighten-2">Módulo de Autenticación Biométrica</h3>
+        <h3 class="header col s12 white-text text-lighten-2">Módulo de Autenticación Biométrica</h3>
          </div>
         <div class="row center">
           <h5 class="header col s12 light">Autenticación biométrica basada en reconocimiento facial y de voz</h5>
         </div>
         <div class="row center">
-          <a href="captura.html" id="download-button" class="btn-large waves-effect waves-light indigo lighten-1">Registrarse</a>
+          <a href="registro.html" id="download-button" class="btn-large waves-effect waves-light indigo lighten-1">Registrarse</a>
         </div>
         <br><br>
 
@@ -67,10 +61,8 @@
     <div class="parallax"><img src="media/banner.jpg" alt="Unsplashed background img 1"></div>
   </div>
 
- <div class="container">
+ <div class="container"><!-- Info 1-->
     <div class="section">
-
-      <!--   Icon Section   -->
       <div class="row">
         <div class="col s12 m4">
           <div class="icon-block">
@@ -103,7 +95,7 @@
     </div>
   </div>
 
-    <div class="parallax-container valign-wrapper">
+  <div class="parallax-container valign-wrapper"><!-- Gif -->
     <div class="section no-pad-bot">
       <div class="container">
         <div class="row center">
@@ -114,8 +106,7 @@
     <div class="parallax"><img src="https://listen.statestreet.com/content/dam/ssblog/inline/face.gif" alt="Unsplashed background img 2"></div>
   </div>
 
-
-  <div class="container">
+  <div class="container"><!-- Info 2 -->
     <div class="section">
 
       <div class="row">
@@ -130,8 +121,7 @@
     </div>
   </div>
 
-
-      <div class="row">
+  <div class="row"><!-- Info 2 -->
       <div id="tcmodal" class="modal">
         <div class="modal-content">
           <h4>Rostro &amp; Voz</h4>
@@ -143,27 +133,21 @@
           <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cerrar</a>
         </div>
       </div>
-    </div>
-    <script type="text/javascript">
-      $(document).ready(function(){
-        $('.tctrigger').leanModal();
-      });
-    </script>
-
- <div class="parallax-container valign-wrapper">
-    <div class="section no-pad-bot">
-      <div class="container">
-        <div class="row center">
-          <h5 class="header col s12 light black-text">Repositorio del proyecto</h5>
-          <!-- Place this tag where you want the button to render. -->
-<a href="https://github.com/DavidFJB/ModuloDeAutenticacionBiometrica" class="btn-floating btn-large waves-effect waves-light indigo lighten-1"><i class="fa fa-github"></i></a>
-        </div>
-      </div>
-    </div>
-    <div class="parallax"><img src="https://assets-cdn.github.com/images/modules/open_graph/github-mark.png" alt="Unsplashed background img 3"></div>
   </div>
 
-    <footer class="page-footer indigo darken-4">
+  <div class="parallax-container valign-wrapper"><!-- Git hub -->
+      <div class="section no-pad-bot">
+        <div class="container">
+          <div class="row center">
+            <h5 class="header col s12 light black-text">Repositorio del proyecto</h5>          
+            <a href="https://github.com/DavidFJB/ModuloDeAutenticacionBiometrica" class="btn-floating btn-large waves-effect waves-light indigo lighten-1"><i class="fa fa-github"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="parallax"><img src="https://assets-cdn.github.com/images/modules/open_graph/github-mark.png" alt="Unsplashed background img 3"></div>
+  </div>
+
+  <footer class="page-footer indigo darken-4"><!-- Pie de pagina -->
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
@@ -190,11 +174,25 @@
         </div>
       </div>
     </div>
+
     <div class="footer-copyright">
       <div class="container">
       &copy;2017 Universidad Industrial de Santander
       </div>
     </div>
   </footer>
-  </body>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+  <script src="js/init.js"></script>    
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  <script type="text/javascript">
+      $(document).ready(function(){
+        $('.tctrigger').leanModal();
+      });
+  </script>
+</body>
 </html>
