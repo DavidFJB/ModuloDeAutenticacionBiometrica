@@ -16,7 +16,7 @@
 
 </head>
 <!-- Modificaciones en los colores del active, linea 6074, icon 6392, checkbox 6601 & 6596, chulito 6727-->
-<body style="background-color: #e4e8ec" >
+<body >
 
    <div class="navbar-fixed"><!--Barra de navegacion-->
     <nav class="white" role="navigation">
@@ -40,6 +40,7 @@
     </nav>
   </div>
 
+<br><br><br>
   
   <div class="container picker__header"><!--Crear huella --> 
     <div class="row">
@@ -100,7 +101,7 @@
     </div>
     </div>
   
-
+<br><br><br>
   
   <script>
 
