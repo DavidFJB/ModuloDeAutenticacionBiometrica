@@ -5,9 +5,9 @@ class VoiceIt {
     public $developerId;
     public $platformId = "6";
 
-    function __construct($devId) {
+    function __construct() {
 
-        $this->developerId = $devId;
+        $this->developerId = "ae6e25717c44451280823f8615ed454a";
         
     }
 

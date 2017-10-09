@@ -9,11 +9,11 @@
     
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.css"> 
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     
     <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.css"> 
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
   
@@ -76,14 +76,14 @@
 
   <br><br>
 
-  <div  class="container picker__header section scrollspy "><!-- Formulario para registrar usuario -->
+  <div  class="container picker__header section scrollspy ">
       <div class="row">
         <div class="col s12 m12 l6 offset-l3">
           <div class="col s12 card #212121 grey darken-4 z-depth-5">
             <div class="card-content white-text">
                <h3 class="center-align ">Crear Usuario</h3>
               <div id="registro" class="section scrollspy row">
-                <form id="FormCrearUsuario" class="col s10 offset-s1" action="registro.php"  method="post">
+                <form id="FormCrearUsuario" class="col s10 offset-s1" action="index2.php"  method="post">
                   <div>
                     <div class="input-field" >                    
                       <input class="validate" name="firsName" type="text" id="Nombre"  required >
@@ -164,12 +164,13 @@
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.js"></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
   <script src="js/init.js"></script>    
   <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.js"></script>
 
   <script type="text/javascript">
      $(document).ready(function(){
@@ -180,87 +181,61 @@
 </body>
 
 </html>
-<script type="text/javascript">
-    function validarContraseña(){
 
-          var minNumberofChars = 6;
+<?php 
 
-          var Contra1 = document.getElementById('CUContraseña').value;
-          var Contra2 = document.getElementById('ConfirmarContraseña').value;
+    require_once("VoiceIt.php");
+    $myVoiceIt = new VoiceIt();
+    error_reporting(E_ERROR | E_WARNING | E_PARSE);      
+    $con = mysqli_connect("localhost", "root", "", "biofacvoz")or die("Problemas al conectar");
+    if ($con->connect_error) {
+      die("Connection failed: " . $con->connect_error);
+    } 
 
-          if (Contra1 != Contra2){        
-            document.getElementById('CUContraseña').className="validate invalid";
-            document.getElementById('ConfirmarContraseña').className="validate invalid";
-          }
-          else{
-            if(Contra1.length < minNumberofChars){
-              document.getElementById('CUContraseña').className="validate invalid";
-              document.getElementById('ConfirmarContraseña').className="validate invalid"; 
+    $accion = $_POST["accion"];
+    
+    if ($accion === "Crear usuario") {
+        
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+        $firsName = $_POST["firsName"];
+        $lastName = $_POST["lastName"];
+        $tel = $_POST["tel"];
+
+        $response = $myVoiceIt->createUser($email, $password, $firsName, $lastName, $tel, "", "");
+
+        $sql = "INSERT INTO usuarios (Nombre, Apellido, Email, Password,  Telefono, Rol) VALUES ('$firsName', '$lastName', '$email', '$password', $tel, '001')";
+        
+
+
+        $text = guardarJson($response);
+
+        if ($text["Result"] == "Success") {
+            echo "<script>swal({title: 'Correcto',html: 'Registro exitoso por favor contacte al siguente numero <b>3174837626</b> o al correo <b>jdkdhd@jdjd.com</b> para la creacion de las huellas biometricas correspondientes', type: 'success',confirmButtonText: 'Aceptar'});</script>";
+
+            if ($con->query($sql) === TRUE) {
+             
+             } 
+            else {
+                 echo "<script>alert(Error en grabacion de base de datos);</script>";
             }
-            else{
-              document.getElementById('CUContraseña').className="validate valid";
-              document.getElementById('ConfirmarContraseña').className="validate valid";
-            }
-          }
+
+        } else {
+            $r = $text["Result"];
+            echo "<script>swal({ title: 'Error!',  text: '$r',  type: 'error',  confirmButtonText: 'Aceptar'})</script>";
         }
+     }
 
-        function validarCorreo(e){
-          var id = e;
-          var correo = document.getElementById(id).value;
-          
-          expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+     function guardarJson($response) {
+     $file = 'json/datos.json';
+     file_put_contents($file, $response);
 
-          if ( !expr.test(correo) ){
-            document.getElementById(id).className="validate invalid";
-          }      
-          else{
-            document.getElementById(id).className="validate valid";
-          }
-        }
+     $data = file_get_contents("json/datos.json");
+     $text = json_decode($data, true);
 
-        function ValidateNumberOnly(){
-          if ((event.keyCode < 48 || event.keyCode > 57)){
-            if(event.keyCode!=8){
-              event.returnValue = false;
-            }
-          }
-        }
-        function validarFormCrearUsuario(){
-
-            var validateStateContraseña = document.getElementById('CUContraseña').className;
-            var validateStateCContraseña = document.getElementById('ConfirmarContraseña').className;
-            var validateStateCorreo = document.getElementById('correoCrearUsuario').className;
-
-            var Contra1 = document.getElementById('CUContraseña').value;
-            var Contra2 = document.getElementById('ConfirmarContraseña').value;
-            var minNumberofChars = 6;
-
-            if(document.getElementById('Nombre').value!="" && document.getElementById('Apellido').value!="" && document.getElementById('correoCrearUsuario').value!="" && document.getElementById('CUContraseña').value!="" && document.getElementById('ConfirmarContraseña').value!="" && document.getElementById('Telefono').value!=""){
-
-              if(validateStateContraseña!="validate invalid" &&  validateStateCContraseña!="validate invalid"){
-                  if(validateStateCorreo != "validate invalid"){
-                    document.getElementById('FormCrearUsuario').submit();
-                  }
-                  else{
-                    swal({ title: 'Error!',  html: 'El correo debe tener el siguente formato <br> <b>xxxxxx@xxxx.com</b>',  type: 'error',  confirmButtonText: 'OK'})
-                  }
-              }
-              else{
-                
-                if(Contra1.length < minNumberofChars || Contra2.length < minNumberofChars){
-                  swal({ title: 'Error!',  text: 'La contraseña debe tener minimo 6 caracteres',  type: 'error',  confirmButtonText: 'OK'})
-                  
-                }
-                else{
-                    swal({ title: 'Error!',  text: 'La contraseña no coincide',  type: 'error',  confirmButtonText: 'OK'})
-                }
-              }
+     return $text;
+    }
+  
 
 
-            }
-            else{
-                swal({ title: 'Error!',  text: 'Debe ingresar todos los campos',  type: 'error',  confirmButtonText: 'OK'})
-            }
-        }
-</script>
-
+?>
