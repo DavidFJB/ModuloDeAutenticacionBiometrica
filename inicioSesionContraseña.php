@@ -20,6 +20,7 @@
 			//echo "El usuario es un administrador<br>";
 			session_start();
 			$_SESSION['Admin']=$_POST["email"];
+			$_SESSION['Contador']="0";
 			//echo $_SESSION['Admin'];
 			?>
 			<script type="text/javascript">
@@ -30,10 +31,11 @@
 			}
 			else{
 				session_start();
-				$_SESSION['email']=$_POST["email"];
+				$_SESSION['User']=$_POST["email"];
+				$_SESSION['Contador']="0";
 				?>
 				<script type="text/javascript">
-					window.location="index2.php";
+					window.location="indexUser.php";
 				</script>
 				<?php
 			}

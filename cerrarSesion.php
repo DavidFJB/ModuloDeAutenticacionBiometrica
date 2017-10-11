@@ -1,10 +1,10 @@
 <?php
 session_start();
-$_SESSION["email"]=array();
+$_SESSION["User"]=array();
 $_SESSION["Admin"]=array();
-$_SESSION["Rol"]=array();
+$_SESSION["Contador"]=array();
 session_destroy();
-header("Location: index.html");
+header("Location: index.php");
 
 
 ?>

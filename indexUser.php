@@ -1,3 +1,16 @@
+<?php
+session_start();
+if(!isset($_SESSION["User"])){
+
+  if(isset($_SESSION["Admin"])){
+    header("Location: indexAdmin.php");
+  }
+  else{
+    header("Location: index.php");
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -15,6 +28,9 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
     
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.js"></script>
     
 </head>
 
@@ -22,44 +38,32 @@
   <div class="navbar-fixed"><!--Barra de navegacion-->
     <nav class="white" role="navigation">
       <div class="nav-wrapper container">
-        <ul id="slide-out" class="side-nav">
-          <li class="active"><a href=".">Home</a></li>
-          <li><a href="registro.html">Registro</a></li>
-          <li><a href="ingresoConContraseña.php">Ingreso</a></li>
+        <ul id="slide-out" class="side-nav">                             
+          <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
         </ul>
         <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
-        <a id="logo-container" href="." class="brand-logo center"><i class="medium material-icons">fingerprint</i></a>
-        <ul class="right hide-on-med-and-down">
-          <li><a href="registro.html">Registro</a></li>
-          <li><a href="ingresoConContraseña.php">Ingreso</a></li>
+        <a id="logo-container" href="indexUser.php" class="brand-logo center"><i class="medium material-icons">fingerprint</i></a>
+        <ul class="right hide-on-med-and-down">                    
+          <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
         </ul>
-        <ul id="nav-mobile" class="side-nav">
-          <li><a href="registro.html">Registro</a></li>
-          <li><a href="ingresoConContraseña.php">Ingreso</a></li>
+        <ul id="nav-mobile" class="side-nav">                    
+          <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
         </ul>
       </div>
     </nav>
   </div>
 
-  <div id="index-banner" class="parallax-container"><!-- Banner -->
+  <div class="parallax-container valign-wrapper"><!-- Gif -->
     <div class="section no-pad-bot">
       <div class="container">
-        <br><br>
-         <div class="row center">
-        <h3 class="header col s12 white-text text-lighten-2">Módulo de Autenticación Biométrica</h3>
-         </div>
         <div class="row center">
-          <h5 class="header col s12 light">Autenticación biométrica basada en reconocimiento facial y de voz</h5>
+          <h5 class="header col s12 light">Compatible con dispositivos móviles</h5>
         </div>
-        <div class="row center">
-          <a href="registro.html" id="download-button" class="btn-large waves-effect waves-light indigo lighten-1">Registrarse</a>
-        </div>
-        <br><br>
-
       </div>
     </div>
-    <div class="parallax"><img src="media/banner.jpg" alt="Unsplashed background img 1"></div>
+    <div class="parallax"><img src="https://listen.statestreet.com/content/dam/ssblog/inline/face.gif" alt="Unsplashed background img 2"></div>
   </div>
+
 
  <div class="container"><!-- Info 1-->
     <div class="section">
@@ -95,15 +99,16 @@
     </div>
   </div>
 
-  <div class="parallax-container valign-wrapper"><!-- Gif -->
-    <div class="section no-pad-bot">
-      <div class="container">
-        <div class="row center">
-          <h5 class="header col s12 light">Compatible con dispositivos móviles</h5>
+  <div class="parallax-container valign-wrapper"><!-- Git hub -->
+      <div class="section no-pad-bot">
+        <div class="container">
+          <div class="row center">
+            <h5 class="header col s12 light black-text">Repositorio del proyecto</h5>          
+            <a href="https://github.com/DavidFJB/ModuloDeAutenticacionBiometrica" class="btn-floating btn-large waves-effect waves-light indigo lighten-1"><i class="fa fa-github"></i></a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="parallax"><img src="https://listen.statestreet.com/content/dam/ssblog/inline/face.gif" alt="Unsplashed background img 2"></div>
+      <div class="parallax"><img src="https://assets-cdn.github.com/images/modules/open_graph/github-mark.png" alt="Unsplashed background img 3"></div>
   </div>
 
   <div class="container"><!-- Info 2 -->
@@ -135,17 +140,7 @@
       </div>
   </div>
 
-  <div class="parallax-container valign-wrapper"><!-- Git hub -->
-      <div class="section no-pad-bot">
-        <div class="container">
-          <div class="row center">
-            <h5 class="header col s12 light black-text">Repositorio del proyecto</h5>          
-            <a href="https://github.com/DavidFJB/ModuloDeAutenticacionBiometrica" class="btn-floating btn-large waves-effect waves-light indigo lighten-1"><i class="fa fa-github"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="parallax"><img src="https://assets-cdn.github.com/images/modules/open_graph/github-mark.png" alt="Unsplashed background img 3"></div>
-  </div>
+
 
   <footer class="page-footer indigo darken-4"><!-- Pie de pagina -->
     <div class="container">
@@ -188,6 +183,7 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
   <script src="js/init.js"></script>    
   <script async defer src="https://buttons.github.io/buttons.js"></script>
+  
 
   <script type="text/javascript">
       $(document).ready(function(){
@@ -196,3 +192,13 @@
   </script>
 </body>
 </html>
+
+<?php
+  
+    if($_SESSION['Contador']=="0"){
+      
+      echo "<script>swal({title: 'Correcto',html: '<b>Iniciaste sesión correctamente</b>, muchas gracias por usar el modulo de autenticación biometrica', type: 'success',confirmButtonText: 'Aceptar'});</script>";
+      $_SESSION['Contador']="1";
+    }
+  
+?>

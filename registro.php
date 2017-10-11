@@ -269,27 +269,32 @@
 <?php
     require_once("VoiceIt.php");
     $myVoiceIt = new VoiceIt();
+
     error_reporting(E_ERROR | E_WARNING | E_PARSE);      
     $con = mysqli_connect("localhost", "root", "", "biofacvoz")or die("Problemas al conectar");
+
     if ($con->connect_error) {
-      die("Connection failed: " . $con->connect_error);
+      die("Conexión biofacvoz fallida: " . $con->connect_error);
     } 
+
     $acentos = $con->query("SET NAMES 'utf8'");
-     $con2 = mysqli_connect("localhost", "root", "", "moodle")or die("Problemas al conectar");
-    if ($con2->connect_error) {
+    $conMoodle = mysqli_connect("localhost", "root", "", "moodle")or die("Problemas al conectar");
+
+    if ($conMoodle->connect_error) {
       die("Conexión Moodle fallida: " . $con->connect_error);
     }
-    $acentos2 = $con2->query("SET NAMES 'utf8'");
-    $accion = $_POST["accion"];
+
+    $acentos2 = $conMoodle->query("SET NAMES 'utf8'");
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         $email = mysqli_real_escape_string($con,$_POST["email"]);
         $password = mysqli_real_escape_string($con,$_POST["password"]);
         $firsName = mysqli_real_escape_string($con,$_POST["firsName"]);
-        $lastName = html_entity_decode($_POST["lastName"], ENT_QUOTES | ENT_HTML401, "UTF-8");
+        $lastName = mysqli_real_escape_string($con,$_POST["lastName"]);
         $tel = mysqli_real_escape_string($con,$_POST["tel"]);
 
-        $sql = "SELECT * FROM usuarios WHERE email='$email'";
+        $sql = "SELECT * FROM usuarios WHERE email='$email'";//Query en la DB biofacvoz para revisar si hay un email igual
         $result= mysqli_query($con,$sql);
         $checkuser=mysqli_num_rows($result);
 
@@ -299,8 +304,8 @@
           </script>";
         }else{
 
-            $sql = "SELECT * FROM mdl_user WHERE email='$email'";
-            $result= mysqli_query($con2,$sql);
+            $sql = "SELECT * FROM mdl_user WHERE email='$email'";//Query en la DB moodle para revisar si hay un email igual
+            $result= mysqli_query($conMoodle,$sql);
             $checkuser=mysqli_num_rows($result);
 
             if($checkuser>0){
@@ -314,10 +319,7 @@
                 if ($text["Result"] == "Success") {
                     echo "<script>swal({title: 'Correcto',html: 'Registro exitoso por favor contacte al siguente numero <b>3174837626</b> o al correo <b>jdkdhd@jdjd.com</b> para la creacion de las huellas biometricas correspondientes', type: 'success',confirmButtonText: 'Aceptar'});</script>";
 
-                    if ($con->query($sql) === TRUE) {
-                     
-                     } 
-                    else {
+                    if (!$con->query($sql) === TRUE) {
                          echo "<script>alert(Error en grabacion de base de datos);</script>";
                     }
 

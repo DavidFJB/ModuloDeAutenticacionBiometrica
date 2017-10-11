@@ -1,9 +1,14 @@
 <?php
-session_start();
-if(!isset($_SESSION["Admin"])){
+  session_start();
+  if(!isset($_SESSION["Admin"])){
 
-  header("Location: index.html");
-}
+    if(isset($_SESSION["User"])){
+      header("Location: indexUser.php");
+    }
+    else{
+      header("Location: index.php");
+    }
+  }
 ?>
 
 <!DOCTYPE html>
@@ -33,33 +38,29 @@ if(!isset($_SESSION["Admin"])){
   <div class="navbar-fixed"><!--Barra de navegacion-->
     <nav class="white" role="navigation">
       <div class="nav-wrapper container">
-        <ul id="slide-out" class="side-nav">                             
-          <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
+        <ul id="slide-out" class="side-nav">                                       
           <li><a href="registro-huella.php">Registrar huella</a></li>
+          <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
         </ul>
         <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
-        <a id="logo-container" href="index2.php" class="brand-logo center"><i class="medium material-icons">fingerprint</i></a>
-        <ul class="right hide-on-med-and-down">                    
-          <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
+        <a id="logo-container" href="indexAdmin.php" class="brand-logo center"><i class="medium material-icons">fingerprint</i></a>
+        <ul class="right hide-on-med-and-down">                              
           <li><a href="registro-huella.php">Registrar huella</a></li>
+          <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
         </ul>
-        <ul id="nav-mobile" class="side-nav">                    
-          <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
+        <ul id="nav-mobile" class="side-nav">                              
           <li><a href="registro-huella.php">Registrar huella</a></li>
+          <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
         </ul>
       </div>
     </nav>
   </div>
 
-  <script type="text/javascript">
-    swal({title: 'Correcto',html: '<b>Bienvenido administrador</b>, Desde esta web podras ingresar las huellas correspondientes a cada uno de los usuarios', type: 'success',confirmButtonText: 'Aceptar'});
-  </script>
-
   <div class="parallax-container valign-wrapper"><!-- Gif -->
     <div class="section no-pad-bot">
       <div class="container">
         <div class="row center">
-          <h5 class="header col s12 light">Compatible con dispositivos móviles</h5>
+          <h5 class="header col s12 black-text">Compatible con dispositivos móviles</h5>
         </div>
       </div>
     </div>
@@ -194,3 +195,13 @@ if(!isset($_SESSION["Admin"])){
   </script>
 </body>
 </html>
+
+<?php
+  
+    if($_SESSION['Contador']=="0"){
+      
+      echo "<script>swal({title: 'Correcto',html: '<b>Bienvenido administrador</b>, Desde esta web podras ingresar las huellas correspondientes a cada uno de los usuarios', type: 'success',confirmButtonText: 'Aceptar'});</script>";
+      $_SESSION['Contador']="1";
+    }
+  
+?>
