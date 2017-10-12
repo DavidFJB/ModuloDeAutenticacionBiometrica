@@ -38,17 +38,17 @@
       <div class="nav-wrapper container">
         <ul id="slide-out" class="side-nav">
           <li class="active"><a href=".">Home</a></li>
-          <li><a href="registro.html">Registro</a></li>
+          <li><a href="registro.php">Registro</a></li>
           <li><a href="ingresoConContraseña.php">Ingreso</a></li>
         </ul>
         <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
         <a id="logo-container" href="." class="brand-logo center"><i class="medium material-icons">fingerprint</i></a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="registro.html">Registro</a></li>
+          <li><a href="registro.php">Registro</a></li>
           <li><a href="ingresoConContraseña.php">Ingreso</a></li>
         </ul>
         <ul id="nav-mobile" class="side-nav">
-          <li><a href="registro.html">Registro</a></li>
+          <li><a href="registro.php">Registro</a></li>
           <li><a href="ingresoConContraseña.php">Ingreso</a></li>
         </ul>
       </div>
@@ -66,7 +66,7 @@
           <h5 class="header col s12 light">Autenticación biométrica basada en reconocimiento facial y de voz</h5>
         </div>
         <div class="row center">
-          <a href="registro.html" id="download-button" class="btn-large waves-effect waves-light indigo lighten-1">Registrarse</a>
+          <a href="registro.php" id="download-button" class="btn-large waves-effect waves-light indigo lighten-1">Registrarse</a>
         </div>
         <br><br>
 

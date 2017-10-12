@@ -60,7 +60,7 @@
     <div class="section no-pad-bot">
       <div class="container">
         <div class="row center">
-          <h5 class="header col s12 black-text">Compatible con dispositivos móviles</h5>
+          <h2 class="header col s12 black-text text-darken-4">Módulo de administración</h2>
         </div>
       </div>
     </div>

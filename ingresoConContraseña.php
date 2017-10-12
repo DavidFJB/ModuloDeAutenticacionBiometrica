@@ -1,13 +1,13 @@
 <?php
-session_start();
-if(isset($_SESSION["email"])){
-  header("Location: index2.php");
-}
+  session_start();
+  if(!isset($_SESSION["Admin"])){
 
-if(isset($_SESSION["Admin"])){
-  header("Location: indexAdmin.php");
-}
-
+    if(isset($_SESSION["User"])){
+      header("Location: indexUser.php");
+    }    
+  }else{
+    header("Location: indexAdmin.php");
+  }
 ?>
 
 
@@ -37,18 +37,18 @@ if(isset($_SESSION["Admin"])){
       <div class="nav-wrapper container">
         <ul id="slide-out" class="side-nav">
           <li><a href=".">Home</a></li>
-          <li><a href="registro.html">Registro</a></li>
-          <li class="active"><a href="reconocimiento.html">Ingreso</a></li>
+          <li><a href="registro.php">Registro</a></li>
+          <li class="active"><a href="ingresoConContraseña.php">Ingreso</a></li>
         </ul>
         <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
         <a id="logo-container" href="." class="brand-logo center"><i class="medium material-icons">fingerprint</i></a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="registro.html">Registro</a></li>
-          <li class="active"><a href="reconocimiento.html">Ingreso</a></li>
+          <li><a href="registro.php">Registro</a></li>
+          <li class="active"><a href="ingresoConContraseña.php">Ingreso</a></li>
         </ul>
         <ul id="nav-mobile" class="side-nav">
-          <li><a href="registro.html">Registro</a></li>
-          <li  class="active"><a href="reconocimiento.html">Ingreso</a></li>
+          <li><a href="registro.php">Registro</a></li>
+          <li  class="active"><a href="ingresoConContraseña.php">Ingreso</a></li>
         </ul>
       </div>
     </nav>

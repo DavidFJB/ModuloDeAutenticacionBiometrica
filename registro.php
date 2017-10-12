@@ -1,3 +1,14 @@
+<?php
+  session_start();
+  if(!isset($_SESSION["Admin"])){
+
+    if(isset($_SESSION["User"])){
+      header("Location: indexUser.php");
+    }    
+  }else{
+    header("Location: indexAdmin.php");
+  }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,18 +35,18 @@
       <div class="nav-wrapper container">
         <ul id="slide-out" class="side-nav">
           <li><a href=".">Home</a></li>
-          <li class="active"><a href="registro.html">Registro</a></li>
-          <li><a href="reconocimiento.html">Ingreso</a></li>
+          <li class="active"><a href="registro.php">Registro</a></li>
+          <li><a href="ingresoConContraseña.php">Ingreso</a></li>
         </ul>
         <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
         <a id="logo-container" href="." class="brand-logo center"><i class="medium material-icons">fingerprint</i></a>
         <ul class="right hide-on-med-and-down">
-          <li class="active"><a href="registro.html">Registro</a></li>
-          <li><a href="reconocimiento.html">Ingreso</a></li>
+          <li class="active"><a href="registro.php">Registro</a></li>
+          <li><a href="ingresoConContraseña.php">Ingreso</a></li>
         </ul>
         <ul id="nav-mobile" class="side-nav">
-          <li class="active"><a href="registro.html">Registro</a></li>
-          <li><a href="reconocimiento.html">Ingreso</a></li>
+          <li class="active"><a href="registro.php">Registro</a></li>
+          <li><a href="ingresoConContraseña.php">Ingreso</a></li>
         </ul>
       </div>
     </nav>
@@ -95,17 +106,17 @@
                     </div>
                     <div class="input-field">
                       <input class="validate" name="email" type="email" id="correoCrearUsuario" name="pass" onblur="validarCorreo('correoCrearUsuario')">
-                      <label class="valign-wrapper" for="Correo">Correo electronico</label>                    
+                      <label class="valign-wrapper" for="Correo">Correo electronico Moodle</label>                    
                     </div>
                     <div class="input-field">
                       <i class="material-icons prefix">lock</i>
                       <input class="validate" name="password" type="password" id="CUContraseña" onblur="validarContraseña()" onfocus="validarContraseña()">   
-                      <label class="valign-wrapper" for="Contraseña">Contraseña</label>                 
+                      <label class="valign-wrapper" for="Contraseña">Contraseña Moodle</label>                 
                     </div>
                     <div class="input-field">
                       <i class="material-icons prefix">lock</i>
                       <input class="validate" type="password" id="ConfirmarContraseña" onblur="validarContraseña()" onfocus="validarContraseña()">   
-                      <label class="valign-wrapper" for="Contraseña">Confirmar contraseña</label>                 
+                      <label class="valign-wrapper" for="Contraseña">Confirmar contraseña Moodle</label>                 
                     </div>
                     <div class="input-field">
                       <i class="material-icons prefix">phone</i>
@@ -309,24 +320,37 @@
             $checkuser=mysqli_num_rows($result);
 
             if($checkuser>0){
-              
-                $response = $myVoiceIt->createUser($email, $password, $firsName, $lastName, $tel, "", "");
 
-                $sql = "INSERT INTO usuarios (Nombre, Apellido, Email, Password,  Telefono, Rol) VALUES ('$firsName', '$lastName', '$email', '$password', $tel, '001')";
+                $sql = "SELECT * FROM mdl_user WHERE email='$email'";
+                $result= mysqli_query($conMoodle,$sql);
+                $info = mysqli_fetch_assoc($result);
 
-                $text = guardarJson($response);
+                if(password_verify($password, $info['password'])){
 
-                if ($text["Result"] == "Success") {
-                    echo "<script>swal({title: 'Correcto',html: 'Registro exitoso por favor contacte al siguente numero <b>3174837626</b> o al correo <b>jdkdhd@jdjd.com</b> para la creacion de las huellas biometricas correspondientes', type: 'success',confirmButtonText: 'Aceptar'});</script>";
+                    $response = $myVoiceIt->createUser($email, $password, $firsName, $lastName, $tel, "", "");
 
-                    if (!$con->query($sql) === TRUE) {
-                         echo "<script>alert(Error en grabacion de base de datos);</script>";
+                    $sql = "INSERT INTO usuarios (Nombre, Apellido, Email, Password,  Telefono, Rol) VALUES ('$firsName', '$lastName', '$email', '$password', $tel, '001')";
+
+                    $text = guardarJson($response);
+
+                    if ($text["Result"] == "Success") {
+                        echo "<script>swal({title: 'Correcto',html: 'Registro exitoso por favor contacte al siguente numero <b>3174837626</b> o al correo <b>jdkdhd@jdjd.com</b> para la creacion de las huellas biometricas correspondientes', type: 'success',confirmButtonText: 'Aceptar'});</script>";
+
+                        if (!$con->query($sql) === TRUE) {
+                             echo "<script>alert(Error en grabacion de base de datos);</script>";
+                        }
+
+                    } else {
+                        $r = $text["Result"];
+                        echo "<script>swal({ title: 'Error!',  text: '$r',  type: 'error',  confirmButtonText: 'Aceptar'})</script>";
                     }
 
-                } else {
-                    $r = $text["Result"];
-                    echo "<script>swal({ title: 'Error!',  text: '$r',  type: 'error',  confirmButtonText: 'Aceptar'})</script>";
-                }
+                }else{
+
+                     echo "<script type='text/javascript'>
+                      swal({ title: 'Error!',  text: 'Contraseña Moodle incorrecta',  type: 'error',  confirmButtonText: 'OK'})
+                      </script>"; 
+                }   
 
             }else{
               echo "<script type='text/javascript'>
