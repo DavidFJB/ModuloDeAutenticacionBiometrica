@@ -60,7 +60,7 @@
           <div class="card-content white-text">
              <h3 class="center-align ">Crear huellas biométricas</h3>
             <div class="row">
-              <form id="myform" class="col s10 offset-s1" action="index3.php" method="post">
+              <form id="myform" class="col s10 offset-s1" action="resultado-huella.php" method="post">
                 <div>
 
                   <div class="input-field">
@@ -658,44 +658,3 @@
 </html>
 
 
-<?php
-    require_once("VoiceIt.php");
-    $myVoiceIt = new VoiceIt("ae6e25717c44451280823f8615ed454a");
-    error_reporting(E_ERROR | E_WARNING | E_PARSE);
-
-    $accion = $_POST["accion"];
-    
-    if ($accion === "Crear usuario") {
-        
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-        $firsName = $_POST["firsName"];
-        $lastName = $_POST["lastName"];
-        $tel = $_POST["tel"];
-
-        $response = $myVoiceIt->createUser($email, $password, $firsName, $lastName, $tel, "", "");
-
-        $text = guardarJson($response);
-
-        if ($text["Result"] == "Success") {
-            echo "<script>swal({title: 'Correcto',text: 'Registro exitoso', type: 'success',confirmButtonText: 'Aceptar'});</script>";
-        } else {
-            $r = $text["Result"];
-            echo "<script>swal({title: 'Error',text: '".$r."', type: 'error',confirmButtonText: 'Aceptar'});</script>";
-        }
-     }
-
-
-
-    function guardarJson($response) {
-    $file = 'json/datos.json';
-    file_put_contents($file, $response);
-
-    $data = file_get_contents("json/datos.json");
-    $text = json_decode($data, true);
-
-    return $text;
-    }
-
-
-    ?>
