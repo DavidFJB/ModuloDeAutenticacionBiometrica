@@ -34,38 +34,40 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
   <script src="js/init.js"></script>
 </head>
-<!-- Modificaciones en los colores del active, linea 6074, icon 6392, checkbox 6601 & 6596, chulito 6727-->
+
 <body >
 
    <div class="navbar-fixed"><!--Barra de navegacion-->
-    <nav class="white" role="navigation">
-      <div class="nav-wrapper container">
-        <ul id="slide-out" class="side-nav">
-          <li><a href="indexAdmin.php">Home</a></li>
-          <li class="active"><a href="registro-huella.php">Registro huella</a></li>
-          <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
-        </ul>
-        <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
-        <a id="logo-container" href="indexAdmin.php" class="brand-logo center"><i class="medium material-icons">fingerprint</i></a>
-        <ul class="right hide-on-med-and-down">
-          <li class="active"><a href="registro-huella.php">Registro huella</a></li>
-          <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
-        </ul>
-        <ul id="nav-mobile" class="side-nav">
-          <li class="active"><a href="registro-huella.php">Registro huella</a></li>
-          <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
-        </ul>
-      </div>
-    </nav>
+      <nav class="white" role="navigation">
+        <div class="nav-wrapper container">
+          <ul id="slide-out" class="side-nav">
+            <li><a href="indexAdmin.php">Home</a></li>
+            <li class="active"><a href="registro-huella.php">Registro huella</a></li>
+            <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
+          </ul>
+          <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+          <a id="logo-container" href="indexAdmin.php" class="brand-logo center"><i class="medium material-icons">fingerprint</i></a>
+          <ul class="right hide-on-med-and-down">
+            <li class="active"><a href="registro-huella.php">Registro huella</a></li>
+            <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
+          </ul>
+          <ul id="nav-mobile" class="side-nav">
+            <li class="active"><a href="registro-huella.php">Registro huella</a></li>
+            <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
+          </ul>
+        </div>
+      </nav>
   </div>
     <div id="carga" class="progress" style="display:block">
       <div  class="indeterminate"></div>
     </div>
     <script type="text/javascript">
+  <script type="text/javascript">
     function redireccionarPagina() {
       window.location = "registro-huella.php";
     }
   </script>
+
 <?php
     require_once("VoiceIt.php");
     $myVoiceIt = new VoiceIt();
