@@ -40,16 +40,19 @@
       <div class="nav-wrapper container">
         <ul id="slide-out" class="side-nav">                                       
           <li><a href="registro-huella.php">Registrar huella</a></li>
+          <li><a href="busqueda.php">Buscar</a></li>
           <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
         </ul>
         <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
         <a id="logo-container" href="indexAdmin.php" class="brand-logo center"><i class="medium material-icons">fingerprint</i></a>
         <ul class="right hide-on-med-and-down">                              
           <li><a href="registro-huella.php">Registrar huella</a></li>
+          <li><a href="busqueda.php">Buscar</a></li>
           <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
         </ul>
         <ul id="nav-mobile" class="side-nav">                              
           <li><a href="registro-huella.php">Registrar huella</a></li>
+          <li><a href="busqueda.php">Buscar</a></li>
           <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
         </ul>
       </div>
