@@ -58,6 +58,9 @@
       </div>
     </nav>
   </div>
+    <div id="carga" class="progress" style="display:block">
+      <div  class="indeterminate"></div>
+    </div>
     <script type="text/javascript">
     function redireccionarPagina() {
       window.location = "registro-huella.php";
@@ -185,7 +188,7 @@
                           }
                           </script>';
                           echo '<section class="aboutContent">
-                          <div class="container row">
+                          <div id="tarjeta" class="container row" style="display:none">
                           <div class="col s12 m2 l2">
                           </div>
                           <div class="col s12 m6 l8">
@@ -642,6 +645,8 @@
 
                     if($caras==1 && $validarpose && $text1["Result"] == "Success" && $text2["Result"] == "Success" && $text3["Result"] == "Success"){
                         echo "<script language='javascript'>
+                        document.getElementById('carga').style.display = 'none';
+                        document.getElementById('tarjeta').style.display = 'block';
                         swal(
                           'Huellas registradas correctamente',
                           'A continiación se muestran los resultados',
