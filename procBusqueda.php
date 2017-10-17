@@ -13,6 +13,7 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
   <!--  Materialize Scripts-->
   <!--  SweetAleert2-->
+  <link rel="stylesheet" href="css/font-awesome.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.css">
   <!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
@@ -20,6 +21,7 @@
   <!-- First, include the Webcam.js JavaScript Library -->
   <script type="text/javascript" src="js/webcam.js"></script>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
   <script src="js/init.js"></script>
@@ -129,10 +131,11 @@
                         <div class="col s12 m2 l4 offset-l4">
                           <div class="card">
                             <div class="card-image">
-                              <img src="'.$path.'">
-                              <span class="card-title black-text">'.$email.'</span> 
+                              <img class="responsive-img materialboxed" data-caption="Huella Facial" src="'.$path.'"> 
                             </div>
                             <div class="card-action">
+                             <span class="card-title black-text">'.$email.'</span>
+                             <br>
                               <a href="'.$path.'" download>Descargar</a>
                               
                             </div>
@@ -216,3 +219,36 @@
       }
 
 ?>
+
+    <footer class="page-footer indigo darken-4">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Sobre nosotros</h5>
+          <p class="grey-text text-lighten-4">Somos estudiantes de último semestre de ingeniería de sistemas de la universidad Industrial de Santander, actualmente estamos desarrollando nuestro proyecto orientado en métodos de autenticación biométrica.</p>
+
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Desarrollado con</h5>
+          <ul>
+            <li><a class="white-text" href="https://aws.amazon.com/es/rekognition/">Amazon Rekognition</a></li>
+            <li><a class="white-text" href="http://materializecss.com/">Materializecss</a></li>
+            <li><a class="white-text" href="https://limonte.github.io/sweetalert2/">SweetAlert2</a></li>
+          </ul>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Repositorios</h5>
+          <ul>
+            <li><a class="github-button" href="https://github.com/davidjurado/ReconocimientoFacial" data-size="large" aria-label="Star davidjurado/ReconocimientoFacial on GitHub">ReconocimientoFacial</a></li>
+            <li><a class="github-button" href="https://github.com/julian1303/ReconocimientoVocal" data-size="large" aria-label="Star julian1303/ReconocimientoVocal on GitHub">ReconocimientoVocal</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      &copy;2017 Universidad Industrial de Santander
+      </div>
+    </div>
+  </footer>
