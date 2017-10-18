@@ -6,6 +6,4 @@ $_SESSION["Contador"]=array();
 $_SESSION['ContadorError']=array();
 session_destroy();
 header("Location: index.php");
-
-
 ?>

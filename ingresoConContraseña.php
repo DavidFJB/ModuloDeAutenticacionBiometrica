@@ -4,7 +4,15 @@
 
     if(isset($_SESSION["User"])){
       header("Location: indexUser.php");
-    }    
+    }
+    if(!isset($_SESSION['ContadorError'])){
+      header("Location: ingreso.php");
+    }
+    else{
+      if($_SESSION['ContadorError']!=0){
+        //header("Location: ingreso.php");
+      }
+    } 
   }else{
     header("Location: indexAdmin.php");
   }

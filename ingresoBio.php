@@ -1,6 +1,13 @@
 <?php
 session_start();
-$_SESSION['ContadorError']=0;
+if(!isset($_SESSION['ContadorError'])){
+  $_SESSION['ContadorError']=3;
+}else{
+  if($_SESSION['ContadorError']==0){
+        header("Location: ingresoConContraseña.php");
+      }
+}
+
 if(!isset($_SESSION["Admin"])){
 
 if(isset($_SESSION["User"])){
@@ -158,11 +165,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     							'Name' => "uploads/{$pathf}",
     						],     
     					],
-    					'Attributes'=>["ALL"],
     				]);
 
             $detallesf=$face['FaceDetails'];
             $caras=count($detallesf);
+            $detallesfjson=json_encode($detallesf);
+            $jsonfile1='json/FaceDetails.json';
+            file_put_contents($jsonfile1, $detallesfjson);
 
             if($caras==1)
             {
@@ -182,6 +191,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	            	]);
 	            	$coincidencias=$comparation['FaceMatches'];
 	            	$nCoincidencias=json_encode($coincidencias);
+                $filejson2='json/FaceDetails_target.json';
+                file_put_contents($filejson2, $nCoincidencias);
 	            	if(strlen($nCoincidencias)>2)
 	            	{
 	            		$confidencialidadf=$comparation['FaceMatches'][0]['Similarity'];
@@ -209,7 +220,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
               if($Rol==2){
                 //echo "El usuario es un administrador<br>";
-                session_start();
                 $_SESSION['Admin']=$_POST["email"];
                 $_SESSION['Contador']="0";
                 //echo $_SESSION['Admin'];
@@ -221,13 +231,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
               }
               else{
-                session_start();
-                $_SESSION['User']=$_POST["email"];                
+                //$_SESSION['User']=$_POST["email"];
+                $_SESSION["User"]=array();
+                $_SESSION["Admin"]=array();
+                $_SESSION["Contador"]=array();
+                $_SESSION['ContadorError']=array();
+                session_destroy();  
 
                 echo "<script language='javascript'>
                 swal({
                     title: '¡Ingreso Exitoso!',
-                    html: 'Autenticación facial exitosa con una confidencialidad de <b>$confidencialidadf %</b> <br> autenticación facial exitosa con una confidencialidad de <b>$confidencialidadv %</b> ',
+                    html: 'Autenticación facial exitosa con una confidencialidad de <b>$confidencialidadf %</b> <br> autenticación vocal exitosa con una confidencialidad de <b>$confidencialidadv %</b> ',
                     type: 'success',
                     confirmButtonColor: '#47A6AC',
                     confirmButtonText: 'ir a moodle',
@@ -241,22 +255,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	           }
 	                else
 	                {
-                      $_SESSION['ContadorError']=$_SESSION['ContadorError']+1;
-	                    //Error en el inicio de sesion;
-	                    echo "<script language='javascript'>"; 
-	                    echo "swal({
-	                        title: 'Error',
-	                        html: '".$msgf." <br> ".$msgv."<br> Intento: ".$_SESSION['ContadorError']."',
-	                        imageUrl: 'data:image/jpeg;base64,".$imageData."',
-	                        type: 'error',
-	                        confirmButtonColor: '#47A6AC',";
-	                        echo "
-	                        confirmButtonText: 'intentar de nuevo!',
-	                        allowOutsideClick: false
-	                    }).then(function () {
-	                        redireccionarPagina();
-	                    })"; 
-	                    echo "</script>";
+                      $_SESSION['ContadorError']=$_SESSION['ContadorError']-1;
+                      if($_SESSION['ContadorError']==0){
+                        echo "<script language='javascript'> 
+                        swal({
+                            title: 'Error',
+                            html: 'Haz completato el numero maximo de intentos<br> seras redirigido a la pagina de ingreso por contrseña <br> Recuerda comunicarte con el administrador para la revision de las heullas vocales',
+                            imageUrl: 'data:image/jpeg;base64,".$imageData."',
+                            type: 'error',
+                            confirmButtonColor: '#47A6AC',                            
+                            confirmButtonText: 'Ingresar por contraseña',
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window.location = 'ingresoConContraseña.php';
+                        }) 
+                        </script>";
+                      }
+                      else{
+                        //Error en el inicio de sesion;
+                        echo "<script language='javascript'>
+                        swal({
+                            title: 'Error en inicio de sesión',
+                            html: '".$msgf." <br> ".$msgv."<br> Intentos restantes: <b>".$_SESSION['ContadorError']." </b>',
+                            imageUrl: 'data:image/jpeg;base64,".$imageData."',
+                            type: 'error',
+                            confirmButtonColor: '#47A6AC',                           
+                            confirmButtonText: 'intentar de nuevo!',
+                            allowOutsideClick: false
+                        }).then(function () {
+                            redireccionarPagina();
+                        }) 
+                        </script>";
+                      }
+                      
 	                }
                 }
                 else
@@ -360,56 +391,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
  	header("Location: ingreso.php");
  }
 
-
-
-
-
-	/*if(isset($_POST["email"]) && isset($_POST["password"])){ //validacion de huellas correctas
-
-		$con = mysqli_connect("localhost", "root", "", "biofacvoz")or die("Problemas al conectar");
-		if ($con->connect_error) {
-		  die("Connection failed: " . $con->connect_error);
-		}
-
-		$sql = "SELECT * FROM usuarios WHERE Email='".$_POST["email"]."' AND Password='".$_POST["password"]."'";
-
-		$consulta = mysqli_query($con,$sql);
-		//$num = mysqli_num_rows($consulta);
-		$info = mysqli_fetch_assoc($consulta);
-		$r=$info['Rol'];
-
-		if (mysqli_num_rows($consulta) > 0){
-
-			if($r==2){
-			//echo "El usuario es un administrador<br>";
-			session_start();
-			$_SESSION['Admin']=$_POST["email"];
-			$_SESSION['Contador']="0";
-			//echo $_SESSION['Admin'];
-			?>
-			<script type="text/javascript">
-				window.location="indexAdmin.php";
-			</script>
-			<?php
-
-			}
-			else{
-				session_start();
-				$_SESSION['User']=$_POST["email"];
-				$_SESSION['Contador']="0";
-				?>
-				<script type="text/javascript">
-					window.location="indexUser.php";
-				</script>
-				<?php
-			}
-		}
-		else{
-			echo "Error en inicio de sesion";
-		} 
-	}*/
-
-
     function guardarJson($response) {
     $file = 'json/datos.json';
     file_put_contents($file, $response);
@@ -432,7 +413,7 @@ document.getElementById('carga').style.display = 'none';
     function ingresarMoodle(username,password) {
     	document.getElementById('username').value = username;
     	document.getElementById('password').value = password;
-		document.getElementById('moodle').submit();
+		  document.getElementById('moodle').submit();
     }
   </script>
 </body>
