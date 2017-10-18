@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['ContadorError']=0;
 if(!isset($_SESSION["Admin"])){
 
 if(isset($_SESSION["User"])){
@@ -100,8 +101,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$pathf = "saved_images/{$filenamef}.jpg";
 	$pathv = "saved_audios/{$filenamev}.wav";
 
-    $resultf = file_put_contents( $pathf, $binary_dataf );
-    $resultv = file_put_contents( $pathv, $binary_datav );
+  $resultf = file_put_contents( $pathf, $binary_dataf );
+  $resultv = file_put_contents( $pathv, $binary_datav );
 
 	$sql = "SELECT * FROM usuarios WHERE email='$email'";
     $result= mysqli_query($con,$sql);
@@ -111,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     	$info = mysqli_fetch_assoc($result);
         $UserID=$info['UserID'];
         $password=$info['Password'];
+        $Rol=$info['Rol'];
 
         $sqlUH = "SELECT * FROM usuario_huella WHERE UserID='$UserID'";//Query en la DB biofacvoz en la tabla usuario_huella para verificar que hay huellas guardadas que hagan referencia al correo de la busqueda
 
@@ -193,40 +195,58 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	        		$porcentajef=json_encode($confidencialidadf);
 
 	              
-	                if(!is_null($confidencialidadf) && !is_null($confidencialidadv))
-	                {
-	                	$conm = mysqli_connect("localhost", "root", "", "moodle")or die("Problemas al conectar");
+	           if(!is_null($confidencialidadf) && !is_null($confidencialidadv))
+	           {
+
+            	$conm = mysqli_connect("localhost", "root", "", "moodle")or die("Problemas al conectar");
 					    if ($conm->connect_error) {
 					      die("Connection failed: " . $conm->connect_error);
 					    }
 					    $sqlm = "SELECT * FROM mdl_user WHERE email='$email'";
-						$resultm= mysqli_query($conm,$sqlm);
-						$infom = mysqli_fetch_assoc($resultm);
-						$username= $infom['username'];
+  						$resultm= mysqli_query($conm,$sqlm);
+  						$infom = mysqli_fetch_assoc($resultm);
+  						$username= $infom['username'];
 
-	                		echo "<script language='javascript'>
-	                		swal({
-	                        title: '¡Ingreso Exitoso!',
-	                        html: 'Autenticación facial exitosa con una confidencialidad de <b>$confidencialidadf %</b> <br> autenticación facial exitosa con una confidencialidad de <b>$confidencialidadv %</b> ',
-	                        type: 'success',
-	                        confirmButtonColor: '#47A6AC',
-	                        confirmButtonText: 'ir a moodle',
-	                        allowOutsideClick: false
-	                    }).then(function () {
-	                        ingresarMoodle('$username','$password');
-	                    })
-	                    </script>";
-	                    
-	                		
+              if($Rol==2){
+                //echo "El usuario es un administrador<br>";
+                session_start();
+                $_SESSION['Admin']=$_POST["email"];
+                $_SESSION['Contador']="0";
+                //echo $_SESSION['Admin'];
+                ?>
+                <script type="text/javascript">
+                  window.location="indexAdmin.php";
+                </script>
+                <?php
 
-	                }
+              }
+              else{
+                session_start();
+                $_SESSION['User']=$_POST["email"];                
+
+                echo "<script language='javascript'>
+                swal({
+                    title: '¡Ingreso Exitoso!',
+                    html: 'Autenticación facial exitosa con una confidencialidad de <b>$confidencialidadf %</b> <br> autenticación facial exitosa con una confidencialidad de <b>$confidencialidadv %</b> ',
+                    type: 'success',
+                    confirmButtonColor: '#47A6AC',
+                    confirmButtonText: 'ir a moodle',
+                    allowOutsideClick: false
+                }).then(function () {
+                    ingresarMoodle('$username','$password');
+                })
+                </script>";                
+              }
+
+	           }
 	                else
 	                {
-	                    //echo "Las imagenes no corresponden a la misma persona";
+                      $_SESSION['ContadorError']=$_SESSION['ContadorError']+1;
+	                    //Error en el inicio de sesion;
 	                    echo "<script language='javascript'>"; 
 	                    echo "swal({
 	                        title: 'Error',
-	                        html: '".$msgf." <br> ".$msgv."',
+	                        html: '".$msgf." <br> ".$msgv."<br> Intento: ".$_SESSION['ContadorError']."',
 	                        imageUrl: 'data:image/jpeg;base64,".$imageData."',
 	                        type: 'error',
 	                        confirmButtonColor: '#47A6AC',";
