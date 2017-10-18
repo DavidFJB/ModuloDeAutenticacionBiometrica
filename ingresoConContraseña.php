@@ -10,7 +10,7 @@
     }
     else{
       if($_SESSION['ContadorError']!=0){
-        //header("Location: ingreso.php");
+        header("Location: ingreso.php");
       }
     } 
   }else{
