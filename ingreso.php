@@ -61,7 +61,7 @@
           <div class="card-content white-text">
              <h3 class="center-align ">Ingreso al Módulo</h3>
             <div class="row">
-              <form id="myformA" class="col s10 offset-s1" action="index4.php" method="post">
+              <form id="myformA" class="col s10 offset-s1" action="ingresoBio.php" method="post">
                 <div>
                   <div class="input-field">
                     <input class="validate" name="email" type="email" id="CorreoAutenticar" name="pass" onblur="validarCorreo('CorreoAutenticar')">
@@ -82,8 +82,8 @@
                     <button  class="btn btn-floating waves-light white" type="button" value="autenticar" onclick="Grabar2(this);" required ><i class="material-icons left black-text">mic</i></button><label><h5>Grabar</h5></label>
                     <button  class="btn btn-floating waves-light white " type="button" value="crearHuella2" onclick="Grabarf(this);" required ><i class="material-icons left black-text">add_a_photo</i></button><label><h5>Grabar huella facial</h5></label>
     
-                    <input id="mydata4" type="hidden" name="mydata4" value=""/>
-                    <input id="mydataA" type="hidden" name="mydataA" value=""/>
+                    <input id="mydataf" type="hidden" name="mydataf" value=""/>
+                    <input id="mydatav" type="hidden" name="mydatav" value=""/>
                     <input value="autenticacion" type="hidden"  name="accion"  >
                   </div>
                   <br>
@@ -240,7 +240,7 @@
               swal({ title: 'Error!',  text: 'You must perform the recording to be able to authenticate',  type: 'error',  confirmButtonText: 'OK'})
               }
             }else{
-                            if(document.getElementById('mydata4').value == ""){
+              if(document.getElementById('mydataf').value == ""){
               if(e=="es-CO"){
                 swal({ title: 'Error!',  text: 'Debe realizar la foto para la creación de la huella',  type: 'error',  confirmButtonText: 'OK'})
               }
@@ -249,7 +249,7 @@
               }
             }else{
             var raw_image_data = data_uri.result.replace(/^data\:audio\/\w+\;base64\,/, '');
-            document.getElementById('mydataA').value = raw_image_data;
+            document.getElementById('mydatav').value = raw_image_data;
             document.getElementById('myformA').submit()
 
             }
@@ -592,7 +592,7 @@
                               Webcam.snap( function(data_uri) {
         // display results in page
          var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
-        document.getElementById('mydata4').value = raw_image_data;
+        document.getElementById('mydataf').value = raw_image_data;
         document.getElementById('results').innerHTML = 
           '<img id="myimg" src="'+data_uri+'" height="230" width="300"/><br/></br>';
         document.getElementById('results').style.display = '';
