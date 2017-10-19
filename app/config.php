@@ -1,8 +1,8 @@
 <?php
 
-$key='GJAFHDSAIDJAJDJFADHFADJF';
-$secret='RKROFLAKSJSIDdFKDKFIDJFDJFDIDKAMD';
-$bucket='biofacial';
+$key='AKIAIñFXQGñT76BXñONUYAA';
+$secret='91EDUhyñHMvY4pYñApDz9ofbxrHñDiOWSfAfM6ñ5fpb0';
+$bucket='biofacial2';
 $region='us-west-2';
 return[
     "s3"=>[
