@@ -63,7 +63,11 @@
     <div class="section no-pad-bot">
       <div class="container">
         <div class="row center">
-          <h2 class="header col s12 black-text text-darken-4">Módulo de administración</h2>
+            <form id="moodle" method="post" action="../moodle/login/index.php" target="_blank">
+            <input id="username" type="hidden" name="username" value="<?php echo $_SESSION['username']; ?>"/>
+            <input id="password" type="hidden" name="password" value="<?php echo $_SESSION['password']; ?>"/>
+            <input class="btn-large waves-light #1565c0 blue darken-3"  onclick="document.getElementById('moodle').submit();" type="button" id="btn-submit" value="Ir a moodle">            
+          </form>
         </div>
       </div>
     </div>

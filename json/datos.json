@@ -1,1 +1,1 @@
-{"Result":"Authentication successful. 88.0%","Confidence":"88.0","EnrollmentID":"1683142","DetectedVoiceprintText":"Mi voz es mi contraseña","DetectedTextConfidence":"90.9","ResponseCode":"SUC"}
+{"Result":"Authentication failed. Not confident. 84.0%","ResponseCode":"ATF"}

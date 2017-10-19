@@ -222,6 +222,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 //echo "El usuario es un administrador<br>";
                 $_SESSION['Admin']=$_POST["email"];
                 $_SESSION['Contador']="0";
+                $_SESSION['username']=$username;
+                $_SESSION['password']=$password;
                 //echo $_SESSION['Admin'];
                 ?>
                 <script type="text/javascript">

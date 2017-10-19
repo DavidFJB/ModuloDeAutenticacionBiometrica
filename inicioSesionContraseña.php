@@ -58,12 +58,23 @@
 		$r=$info['Rol'];
 
 		if (mysqli_num_rows($consulta) > 0){
+			$conm = mysqli_connect("localhost", "root", "", "moodle")or die("Problemas al conectar");
+		    if ($conm->connect_error) {
+		      die("Connection failed: " . $conm->connect_error);
+		    }
+		    $sqlm = "SELECT * FROM mdl_user WHERE email='$email'";
+			$resultm= mysqli_query($conm,$sqlm);
+			$infom = mysqli_fetch_assoc($resultm);
+			$username= $infom['username'];
 
 			if($r==2){
 			//echo "El usuario es un administrador<br>";
 			session_start();
 			$_SESSION['Admin']=$_POST["email"];
 			$_SESSION['Contador']="0";
+			$_SESSION['username']=$username;
+            $_SESSION['password']=$password;
+
 			//echo $_SESSION['Admin'];
 			?>
 			<script type="text/javascript">
@@ -73,15 +84,6 @@
 
 			}
 			else{
-				$conm = mysqli_connect("localhost", "root", "", "moodle")or die("Problemas al conectar");
-			    if ($conm->connect_error) {
-			      die("Connection failed: " . $conm->connect_error);
-			    }
-			    $sqlm = "SELECT * FROM mdl_user WHERE email='$email'";
-					$resultm= mysqli_query($conm,$sqlm);
-					$infom = mysqli_fetch_assoc($resultm);
-					$username= $infom['username'];
-
 				session_start();
 				$_SESSION["User"]=array();
 				$_SESSION["Admin"]=array();
