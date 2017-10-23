@@ -11,6 +11,16 @@
 ?>
 <!DOCTYPE html>
 <html>
+<script language='javascript'>
+  var sound;
+  var beep;
+  var cameraSound;
+function cargaAudio(){
+  sound = new Audio('media/grabacion.wav');
+  beep = new Audio('media/beep.wav');
+  cameraSound = new Audio('media/camera.wav');
+}
+</script>
 <head>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.css"> 
 
@@ -28,6 +38,10 @@
 </head>
 <!-- Modificaciones en los colores del active, linea 6074, icon 6392, checkbox 6601 & 6596, chulito 6727-->
 <body >
+
+<script>
+  window.onload=cargaAudio();
+</script>
 
   <div class="navbar-fixed"><!--Barra de navegacion-->
     <nav class="white" role="navigation">
@@ -274,8 +288,6 @@
 
           if(seleccionIdioma==true){
 
-                    var sound = new Audio('media/grabacion.wav');
-                    var beep = new Audio('media/beep.wav');
                     var id = button.value;
                     if(id=="autenticar"){
                       var idioma = document.getElementById("selectorA").value;  
@@ -303,9 +315,9 @@
                           }).then(function () {
                                               sound.play();
                                               setTimeout(function(){
-                                                beep.play();
+                                                
                                                 Grabar3(b);                            
-                                              },5000)
+                                              },6000)
                           })
 
                         }
@@ -323,7 +335,7 @@
                               buttonsStyling: false,
                               allowOutsideClick: false
                           }).then(function () {   
-                                  beep.play();
+                                  
                                   Grabar3(b); 
                           })
                           
@@ -348,9 +360,9 @@
                                               sound.play();
                                               
                                               setTimeout(function(){
-                                                beep.play();
+                                                
                                                 Grabar3(b);  
-                                              },5000)
+                                              },6000)
             
                                               setTimeout(function(){
                                                 swal({
@@ -368,9 +380,9 @@
                                                                     sound.play();
 
                                                                     setTimeout(function(){
-                                                                      beep.play();                                                       
+                                                                                                                             
                                                                       Grabar3(b);                         
-                                                                    },5000)
+                                                                    },6000)
             
                                                                     setTimeout(function(){
                                                                       swal({
@@ -387,14 +399,14 @@
                                                                       }).then(function () {
                                                                                           sound.play();
                                                                                           setTimeout(function(){
-                                                                                            beep.play();
+                                                                                            
                                                                                             Grabar3(b);                            
-                                                                                          },5000)
+                                                                                          },6000)
                                                                       })
-                                                                    },10600);
+                                                                    },12000);
                                                   
                                                 })
-                                              },10600);
+                                              },12000);
                           })
             
                       }else{
@@ -411,7 +423,7 @@
                             buttonsStyling: false,
                             allowOutsideClick: false
                           }).then(function () {
-                                              beep.play();
+                                              
                                               Grabar3(b);                                  
                                               setTimeout(function(){
                                                 swal({
@@ -426,7 +438,7 @@
                                                     buttonsStyling: false,
                                                     allowOutsideClick: false
                                                 }).then(function () {
-                                                                    beep.play();
+                                                                    
                                                                     Grabar3(b);                                                        
                                                                     setTimeout(function(){
                                                                     swal({
@@ -441,7 +453,7 @@
                                                                         buttonsStyling: false,
                                                                         allowOutsideClick: false
                                                                     }).then(function () {
-                                                                                        beep.play();
+                                                                                        
                                                                                         Grabar3(b);
                                                                                         
                                                                     })
@@ -467,10 +479,6 @@
         function Grabarf(button){          
           
           b=button;
-          var cameraSound = new Audio('media/camera.wav');
-
-
-
                           swal({
                            html: "<i class='material-icons medium blue-text'>mood</i> <h5><b>Graba tu huella facial</b></h5> <div style='display: -webkit-box; display: -ms-flexbox; display: -webkit-flex;  display: flex; justify-content: center; align-items: center;'><img id='silueta' class='center' src='media/silueta.png' style='z-index:3;position:absolute;'> <div id='my_camera' class='responsive-video col s12 m6 l6' ></div></div><br> Pulsa para capturar la imagen<br> Despues verifica si: <br><b>La imagen está centrada y nitida</b>",
                                                     type: '',
@@ -556,14 +564,15 @@
                     html: " <h5><b>Grabando</b></h5> <br> <button  class='btn btn-floating pulse waves-light red' type='button'><i class='material-icons left'>fiber_manual_record</i></button> <br><br> <b>Di: Mi voz es mi contraseña</b>  <br> La grabacion finalizara en 5 segundos!!",            
                     text: 'Se cerrará automáticamente en 5 segundos',
                     showConfirmButton: false,
-                    timer: 5000,
+                    timer: 5800,
                     allowOutsideClick: false,
                     onOpen: function () {
-
+                      beep.play();
                       setTimeout(function(){
-                        Grabar(b);},540);                     
+                        
+                        Grabar(b);},800);                     
                       
-                      }        
+                      }           
                   }).then(
                       function () {
                           

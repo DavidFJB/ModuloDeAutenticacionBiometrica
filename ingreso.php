@@ -18,6 +18,17 @@ if(!isset($_SESSION['ContadorError'])){
 ?>
 <!DOCTYPE html>
 <html>
+
+<script language='javascript'>
+  var sound;
+  var beep;
+  var cameraSound;
+function cargaAudio(){
+  sound = new Audio('media/grabacion.wav');
+  beep = new Audio('media/beep.wav');
+  cameraSound = new Audio('media/camera.wav');
+}
+</script>
 <head>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.css"> 
 
@@ -29,6 +40,7 @@ if(!isset($_SESSION['ContadorError'])){
 
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
  <script type="text/javascript" src="js/webcam.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
@@ -36,6 +48,9 @@ if(!isset($_SESSION['ContadorError'])){
 <!-- Modificaciones en los colores del active, linea 6074, icon 6392, checkbox 6601 & 6596, chulito 6727-->
 <body >
 
+<script>
+  window.onload=cargaAudio();
+</script>
   <div class="navbar-fixed"><!--Barra de navegacion-->
     <nav class="white" role="navigation">
       <div class="nav-wrapper container">
@@ -109,7 +124,7 @@ if(!isset($_SESSION['ContadorError'])){
 <br><br><br>
   
 
-  <script>//Validaciones    
+  <script>//Validaciones  
         function validarCorreo(e){
           var id = e;
           var correo = document.getElementById(id).value;
@@ -279,8 +294,7 @@ if(!isset($_SESSION['ContadorError'])){
 
           if(seleccionIdioma==true){
 
-                    var sound = new Audio('media/grabacion.wav');
-                    var beep = new Audio('media/beep.wav');
+
                     var id = button.value;
                     if(id=="autenticar"){
                       var idioma = document.getElementById("selectorA").value;  
@@ -307,10 +321,9 @@ if(!isset($_SESSION['ContadorError'])){
                               allowOutsideClick: false
                           }).then(function () {
                                               sound.play();
-                                              setTimeout(function(){
-                                                beep.play();
+                                              setTimeout(function(){                                                
                                                 Grabar3(b);                            
-                                              },5000)
+                                              },6000)
                           })
 
                         }
@@ -334,134 +347,9 @@ if(!isset($_SESSION['ContadorError'])){
                           
                         }  
                     }
-                    else{
                     
-                      if(idioma=="es-CO"){
-            
-                          swal({          
-                            html: "<i class='material-icons medium blue-text'>filter_1</i> <h5><b>Graba tu huella vocal</b></h5> Primera grabacion <br><br> Pulsa para grabar<br> Despues di: <b>Mi voz es mi contraseña</b>",
-                            type: '',
-                            showCancelButton: false,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: '<i class="material-icons left ">mic</i>',
-                            cancelButtonText: 'No, cancel!',
-                            confirmButtonClass: 'btn btn-floating waves-light black',                    
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                          }).then(function () {                                            
-                                              sound.play();
-                                              
-                                              setTimeout(function(){
-                                                beep.play();
-                                                Grabar3(b);  
-                                              },5000)
-            
-                                              setTimeout(function(){
-                                                swal({
-                                                    html: "<i class='material-icons medium blue-text'>filter_2</i> <h5><b>Graba tu huella vocal</b></h5> <br> Segunda grabacion <br><br> Pulsa para grabar<br> Despues di: <b>Mi voz es mi contraseña</b>",
-                                                    type: '',
-                                                    showCancelButton: false,
-                                                    confirmButtonColor: '#3085d6',
-                                                    cancelButtonColor: '#d33',
-                                                    confirmButtonText: '<i class="material-icons left ">mic</i>',
-                                                    cancelButtonText: 'No, cancel!',
-                                                    confirmButtonClass: 'btn btn-floating waves-light black',                    
-                                                    buttonsStyling: false,
-                                                    allowOutsideClick: false
-                                                }).then(function () {
-                                                                    sound.play();
-
-                                                                    setTimeout(function(){
-                                                                      beep.play();                                                       
-                                                                      Grabar3(b);                         
-                                                                    },5000)
-            
-                                                                    setTimeout(function(){
-                                                                      swal({
-                                                                        html: "<i class='material-icons medium blue-text'>filter_3</i> <h5><b>Graba tu huella vocal</b></h5> <br> Tercera grabacion <br><br> Pulsa para grabar<br> Despues di: <b>Mi voz es mi contraseña</b>",
-                                                                          type: '',
-                                                                          showCancelButton: false,
-                                                                          confirmButtonColor: '#3085d6',
-                                                                          cancelButtonColor: '#d33',
-                                                                          confirmButtonText: '<i class="material-icons left ">mic</i>',
-                                                                          cancelButtonText: 'No, cancel!',
-                                                                          confirmButtonClass: 'btn btn-floating waves-light black',                    
-                                                                          buttonsStyling: false,
-                                                                          allowOutsideClick: false
-                                                                      }).then(function () {
-                                                                                          sound.play();
-                                                                                          setTimeout(function(){
-                                                                                            beep.play();
-                                                                                            Grabar3(b);                            
-                                                                                          },5000)
-                                                                      })
-                                                                    },10600);
-                                                  
-                                                })
-                                              },10600);
-                          })
-            
-                      }else{
-            
-                          swal({          
-                            html: "<i class='material-icons medium blue-text'>filter_1</i> <h5><b>Record your fingerprint</b></h5> First recording <br><br> Press to record<br> Then say: <b>Never forget tomorrow is a new day</b>",
-                            type: '',
-                            showCancelButton: false,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: '<i class="material-icons left ">mic</i>',
-                            cancelButtonText: 'No, cancel!',
-                            confirmButtonClass: 'btn btn-floating waves-light black',                    
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                          }).then(function () {
-                                              beep.play();
-                                              Grabar3(b);                                  
-                                              setTimeout(function(){
-                                                swal({
-                                                  html: "<i class='material-icons medium blue-text'>filter_1</i> <h5><b>Record your fingerprint</b></h5> Second recording <br><br> Press to record<br> Then say: <b>Never forget tomorrow is a new day</b>",
-                                                    type: '',
-                                                    showCancelButton: false,
-                                                    confirmButtonColor: '#3085d6',
-                                                    cancelButtonColor: '#d33',
-                                                    confirmButtonText: '<i class="material-icons left ">mic</i>',
-                                                    cancelButtonText: 'No, cancel!',
-                                                    confirmButtonClass: 'btn btn-floating waves-light black',                    
-                                                    buttonsStyling: false,
-                                                    allowOutsideClick: false
-                                                }).then(function () {
-                                                                    beep.play();
-                                                                    Grabar3(b);                                                        
-                                                                    setTimeout(function(){
-                                                                    swal({
-                                                                      html: "<i class='material-icons medium blue-text'>filter_1</i> <h5><b>Record your fingerprint</b></h5> Third recording <br><br> Press to record<br> Then say: <b>Never forget tomorrow is a new day</b>",
-                                                                        type: '',
-                                                                        showCancelButton: false,
-                                                                        confirmButtonColor: '#3085d6',
-                                                                        cancelButtonColor: '#d33',
-                                                                        confirmButtonText: '<i class="material-icons left ">mic</i>',
-                                                                        cancelButtonText: 'No, cancel!',
-                                                                        confirmButtonClass: 'btn btn-floating waves-light black',                    
-                                                                        buttonsStyling: false,
-                                                                        allowOutsideClick: false
-                                                                    }).then(function () {
-                                                                                        beep.play();
-                                                                                        Grabar3(b);
-                                                                                        
-                                                                    })
-                                                                  },5200);
-                                                  
-                                                })
-                                              },5200);
-            
-            
-            
-                          })
-                      }
                     
-                    }
-          }
+              }
 
         
         }
@@ -485,12 +373,13 @@ if(!isset($_SESSION['ContadorError'])){
                     html: " <h5><b>Grabando</b></h5> <br> <button  class='btn btn-floating pulse waves-light red' type='button'><i class='material-icons left'>fiber_manual_record</i></button> <br><br> <b>Di: Mi voz es mi contraseña</b>  <br> La grabacion finalizara en 5 segundos!!",            
                     text: 'Se cerrará automáticamente en 5 segundos',
                     showConfirmButton: false,
-                    timer: 5000,
+                    timer: 5800,
                     allowOutsideClick: false,
                     onOpen: function () {
-
+                      beep.play();
                       setTimeout(function(){
-                        Grabar(b);},540);                     
+                        
+                        Grabar(b);},800);                     
                       
                       }        
                   }).then(
@@ -538,10 +427,7 @@ if(!isset($_SESSION['ContadorError'])){
         function Grabarf(button){          
           
           b=button;
-          var cameraSound = new Audio('media/camera.wav');
-
-
-
+         
                           swal({
                            html: "<i class='material-icons medium blue-text'>mood</i> <h5><b>Graba tu huella facial</b></h5> <div style='display: -webkit-box; display: -ms-flexbox; display: -webkit-flex;  display: flex; justify-content: center; align-items: center;'><img id='silueta' class='center' src='media/silueta.png' style='z-index:3;position:absolute;'> <div id='my_camera' class='responsive-video col s12 m6 l6' ></div></div><br> Pulsa para capturar la imagen<br> Despues verifica si: <br><b>La imagen está centrada y nitida</b>",
                                                     type: '',
