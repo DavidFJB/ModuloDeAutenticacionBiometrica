@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Resultados</title>
-  <!--Let browser know website is optimized for mobile-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
-  <!-- Compiled and minified JavaScript -->
-  <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
-  <!--  Materialize Scripts-->
-  <!--  SweetAleert2-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.css">
-  <!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
-  <!-- First, include the Webcam.js JavaScript Library -->
-  <script type="text/javascript" src="js/webcam.js"></script>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-  <script src="js/init.js"></script>
+	<link rel="icon" href="media/fingerprint.png">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Resultados</title>
+	<!--Let browser know website is optimized for mobile-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+	<!-- Compiled and minified JavaScript -->
+	<link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
+	<!--  Materialize Scripts-->
+	<!--  SweetAleert2-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.css">
+	<!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+	<!-- First, include the Webcam.js JavaScript Library -->
+	<script type="text/javascript" src="js/webcam.js"></script>
+	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+	<script src="js/init.js"></script>
 </head>
 <body >
 <form id="moodle" method="post" action="../moodle/login/index.php">

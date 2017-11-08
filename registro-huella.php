@@ -22,6 +22,7 @@ function cargaAudio(){
 }
 </script>
 <head>
+      <link rel="icon" href="media/fingerprint.png">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.css"> 
 
       <!--Import Google Icon Font-->
