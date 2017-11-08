@@ -60,6 +60,7 @@
            <form id = "buscar" action="procBusqueda.php" method="post">
              <div class="input-field grey-text">
                <input id="search" name="email" type="search" placeholder="Buscar huella por correo" value="" onblur="validarCorreo('search')" required>
+               <input type="hidden" name="accion" value="buscar" >
                <label class="label-icon" for="search"><i class="material-icons grey-text">search</i></label>
                <i class="material-icons grey-text">close</i>
              </div>
