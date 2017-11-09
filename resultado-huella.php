@@ -62,7 +62,6 @@
     <div id="carga" class="progress" style="display:block">
       <div  class="indeterminate"></div>
     </div>
-    <script type="text/javascript">
   <script type="text/javascript">
     function redireccionarPagina() {
       window.location = "registro-huella.php";
