@@ -32,7 +32,8 @@ function cargaAudio(){
 <head>
       <link rel="icon" href="media/fingerprint.png">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.css"> 
-
+      
+      <title>Ingreso</title>
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->

@@ -19,7 +19,7 @@ if(!isset($_SESSION["User"])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-    <title>Módulo de autenticación biométrica</title>
+    <title>Home</title>
     
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/font-awesome.min.css">
