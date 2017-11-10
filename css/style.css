@@ -5,14 +5,18 @@
  *
  * Made By MaterializeCSS.com
  */
+
+  html, body{
+    height: 100%;
+  }
+
  html, body, .block {
     height: 100%;
   }
 
   html, body, .footer{
-     bottom: 0px; 
-     position: absolute; 
-     width: 100%;"
+     bottom: 0px;      
+     width: 100%;
   }
 
     // Class for when element is above threshold
