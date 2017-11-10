@@ -436,6 +436,8 @@
                                     
               }
               else{
+                echo "<div class=''style='height:58%; position: initial;'></div>";
+
                 echo "<script type='text/javascript'>
                 swal({ title: 'Error!',  text: 'El Correo no está registrado',  type: 'error',  confirmButtonText: 'OK', allowOutsideClick: false}).then(function () {      redireccionarPagina();})
                 </script>";

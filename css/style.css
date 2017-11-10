@@ -14,9 +14,10 @@
     height: 100%;
   }
 
-  html, body, .footer{
+  .footer{
      bottom: 0px;      
      width: 100%;
+     position: initial;
   }
 
     // Class for when element is above threshold
