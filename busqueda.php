@@ -66,12 +66,12 @@
              </div>
            </form>
          </div>        
-          <button style="width: 100%;" class="pushpin-demo-nav pinned waves-effect waves-light blue darken-3 btn" onclick="buscar()" tabindex="2" onfocus="myFunction(this)" onblur="myFunction2(this)">
+          <button style="width: 100%; border-radius: 0px;" class="pushpin-demo-nav pinned waves-effect waves-light blue darken-3 btn" onclick="buscar()" tabindex="2" onfocus="myFunction(this)" onblur="myFunction2(this)">
               Buscar
           </button>  
     </nav>
   </div>
-  <br><br><br><br><br><br><br><br><br>
+  <br><br><br><br><br><br><br><br>
   <div class="row ">
         <div class="col s8 m8 l4 offset-l4 offset-s2 offset-m2">
           <div class="card "> 
@@ -79,9 +79,9 @@
               <img src="media/02.jpg" style="width: 100%; height: 50%;" class="responsive-img">              
             </div>    
                   
-            <div class="card-content">
+            <div style="text-align: justify;" class="card-content">
               <p>En esta pagina podras buscar las huellas tanto vocales como faciales para cada uno de los
-              usuarios registrados en el modulo.</p>
+              usuarios registrados en el modulo. Ademas podras eliminar cada una de las huellas correspondientes a cada usuario.</p>
             </div>
             
           </div>
@@ -150,7 +150,7 @@
 
   <script type="text/javascript">
         function myFunction(x) {
-            x.style= "width: 100%; border: 0.5px solid grey; border-radius: 5px;";
+            x.style= "width: 100%; border: 1.0px solid grey; ";
             x.className="pushpin-demo-nav pinned waves-effect waves-light blue darken-1 btn";
         }
         function myFunction2(x) {
