@@ -1,1 +1,1 @@
-{"Result":"Authentication successful. 89.0%","Confidence":"89.0","EnrollmentID":"1744058","DetectedVoiceprintText":"Mi voz es mi contraseña","DetectedTextConfidence":"92.7","ResponseCode":"SUC","TimeTaken":"4.563s"}
+{"Result":"Success","EnrollmentID":"1750821","DetectedVoiceprintText":"Mi voz es mi contraseña","DetectedTextConfidence":"99.3","ResponseCode":"SUC","TimeTaken":"1.406s"}

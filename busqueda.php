@@ -54,44 +54,41 @@
     </nav>
   </div>
   
-  <div id="blue" class="block">
-    <nav class="pushpin-demo-nav pinned indigo darken-4 " data-target="blue" style="top: 0px; z-index:3;" >
+  <div>
+    <nav class="pushpin-demo-nav pinned indigo darken-4 " style="z-index:3;" >
       <div class="nav-wrapper">
            <form id = "buscar" action="procBusqueda.php" method="post">
              <div class="input-field grey-text">
-               <input id="search" name="email" type="search" placeholder="Buscar huella por correo" value="" onblur="validarCorreo('search')" required>
+               <input id="search" name="email" type="search" placeholder="Buscar huella por correo" value="" onblur="validarCorreo('search')" required onkeydown="if (event.keyCode == 13) return false">
                <input type="hidden" name="accion" value="buscar" >
                <label class="label-icon" for="search"><i class="material-icons grey-text">search</i></label>
                <i class="material-icons grey-text">close</i>
              </div>
            </form>
          </div>
+        <nav class="pushpin-demo-nav pinned waves-effect waves-light blue darken-3 btn" onclick="buscar()">      
+           <div class="nav-wrapper" style="height: 0%;">
+            Buscar
+           </div>    
+        </nav>
     </nav>
-
-  <br><br><br><br>
-
-    <div class="row ">
+  </div>
+  <br><br><br><br><br><br><br><br><br>
+  <div class="row ">
         <div class="col s8 m8 l4 offset-l4 offset-s2 offset-m2">
           <div class="card "> 
             <div class="card-image">
               <img src="media/02.jpg" style="width: 100%; height: 50%;" class="responsive-img">              
-            </div>           
+            </div>    
+                  
             <div class="card-content">
               <p>En esta pagina podras buscar las huellas tanto vocales como faciales para cada uno de los
               usuarios registrados en el modulo.</p>
             </div>
-            <div class="card-action">
-              <button class="waves-effect waves-light btn blue darken-3" onclick="buscar()">
-                <i class="material-icons left">search</i>Buscar
-              </button>
-            </div>
+            
           </div>
         </div>
     </div>
-  </div>
- 
-  <br><br>
-
   <br><br>
 
   <footer class="page-footer indigo darken-4"><!-- Pie de pagina -->
@@ -135,11 +132,13 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
   <script src="js/init.js"></script>    
   <script async defer src="https://buttons.github.io/buttons.js"></script>
+
   <script type="text/javascript">
      $(document).ready(function(){
       $('.scrollspy').scrollSpy();
       });
   </script>
+
   <script type="text/javascript">
     $('.pushpin-demo-nav').each(function() {
       var $this = $(this);

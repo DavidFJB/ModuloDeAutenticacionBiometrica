@@ -12,7 +12,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="icon" href="media/fingerprint.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <title>Resultados</title>
@@ -38,26 +37,28 @@
 
 <body >
 
-   <div class="navbar-fixed"><!--Barra de navegacion-->
-      <nav class="white" role="navigation">
-        <div class="nav-wrapper container">
-          <ul id="slide-out" class="side-nav">
-            <li><a href="indexAdmin.php">Home</a></li>
-            <li class="active"><a href="registro-huella.php">Registro huella</a></li>
-            <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
-          </ul>
-          <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
-          <a id="logo-container" href="indexAdmin.php" class="brand-logo center"><i class="medium material-icons">fingerprint</i></a>
-          <ul class="right hide-on-med-and-down">
-            <li class="active"><a href="registro-huella.php">Registro huella</a></li>
-            <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
-          </ul>
-          <ul id="nav-mobile" class="side-nav">
-            <li class="active"><a href="registro-huella.php">Registro huella</a></li>
-            <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
-          </ul>
-        </div>
-      </nav>
+  <div class="navbar-fixed"><!--Barra de navegacion-->
+    <nav class="white" role="navigation">
+      <div class="nav-wrapper container">
+        <ul id="slide-out" class="side-nav">                                       
+          <li><a href="registro-huella.php">Registrar huella</a></li>
+          <li class="active"><a href="busqueda.php">Buscar</a></li>
+          <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
+        </ul>
+        <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+        <a id="logo-container" href="indexAdmin.php" class="brand-logo center"><i class="medium material-icons">fingerprint</i></a>
+        <ul class="right hide-on-med-and-down">                              
+          <li><a href="registro-huella.php">Registrar huella</a></li>
+          <li class="active"><a href="busqueda.php">Buscar</a></li>
+          <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
+        </ul>
+        <ul id="nav-mobile" class="side-nav">                              
+          <li><a href="registro-huella.php">Registrar huella</a></li>
+          <li class="active"><a href="busqueda.php">Buscar</a></li>
+          <li><a href="cerrarSesion.php">Cerrar sesión</a></li>
+        </ul>
+      </div>
+    </nav>
   </div>
     <div id="carga" class="progress" style="display:block">
       <div  class="indeterminate"></div>
@@ -492,18 +493,21 @@
 
                 $text1 = guardarJson($response1);
                 $r1 = $text1["Result"];
+                $EnrollmentID1=$text1["EnrollmentID"];
    
                     $r12 = $text1["DetectedVoiceprintText"];
                     $r13 = $text1["DetectedTextConfidence"];
 
                 $text2 = guardarJson($response2);
                 $r2 = $text2["Result"];
+                $EnrollmentID2=$text2["EnrollmentID"];
 
                     $r22 = $text2["DetectedVoiceprintText"];
                     $r23 = $text2["DetectedTextConfidence"]; 
 
                 $text3 = guardarJson($response3);
                 $r3 = $text3["Result"];
+                $EnrollmentID3=$text3["EnrollmentID"];
 
                     $r32 = $text3["DetectedVoiceprintText"];
                     $r33 = $text3["DetectedTextConfidence"]; 
@@ -665,24 +669,27 @@
                           $resultf=mysqli_query($con,$sqlfq);
                           $infof = mysqli_fetch_assoc($resultf);
                           $idf=$infof['HF_ID'];
+
                           //huella vocal1
-                          $sqlv1 = "INSERT INTO huellas_vocales (HuellaVocal) VALUES ('$path1')";
+                          $sqlv1 = "INSERT INTO huellas_vocales (HuellaVocal,EnrollmentID) VALUES ('$path1','$EnrollmentID1')";
                           mysqli_query($con,$sqlv1);
 
                           $sqlv1q = "SELECT * FROM huellas_vocales WHERE HuellaVocal='$path1'";
                           $resultv1=mysqli_query($con,$sqlv1q);
                           $infov1 = mysqli_fetch_assoc($resultv1);
                           $idv1=$infov1['HV_ID'];
+
                           //huella vocal2
-                          $sqlv2 = "INSERT INTO huellas_vocales (HuellaVocal) VALUES ('$path2')";
+                          $sqlv2 = "INSERT INTO huellas_vocales (HuellaVocal,EnrollmentID) VALUES ('$path2','$EnrollmentID2')";
                           mysqli_query($con,$sqlv2);
 
                           $sqlv2q = "SELECT * FROM huellas_vocales WHERE HuellaVocal='$path2'";
                           $resultv2=mysqli_query($con,$sqlv2q);
                           $infov2 = mysqli_fetch_assoc($resultv2);
                           $idv2=$infov2['HV_ID'];
+
                           //huella vocal3
-                          $sqlv3 = "INSERT INTO huellas_vocales (HuellaVocal) VALUES ('$path3')";
+                          $sqlv3 = "INSERT INTO huellas_vocales (HuellaVocal,EnrollmentID) VALUES ('$path3','$EnrollmentID3')";
                           mysqli_query($con,$sqlv3);
 
                           $sqlv3q = "SELECT * FROM huellas_vocales WHERE HuellaVocal='$path3'";
