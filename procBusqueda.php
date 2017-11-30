@@ -388,7 +388,9 @@ function cargaAudio(){
                       echo "<br><br><br>";
                       ?>
                         <div class="row">
-                              <div class="col s12 m2 l4 offset-l4">
+                              <div class="col col s12 m2 l4">
+                              </div>
+                               <div class='col s12 m8 l4'>
                                 <div class="card">
                                   <div class="card-image">
                                     <img class="responsive-img materialboxed" data-caption="Huella Facial" src="<?php echo $path; ?>"> 
@@ -429,6 +431,9 @@ function cargaAudio(){
                                   </div>
                                 </div>
                               </div>
+                              <div class="col col s12 m2 l4">
+                              </div>
+
                             </div>
                             <br>
                         <?php

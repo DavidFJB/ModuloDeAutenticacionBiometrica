@@ -65,7 +65,7 @@
                <input id="search" name="email" type="search" placeholder="Buscar huella por correo" value="" onblur="validarCorreo('search')" required onkeydown="if (event.keyCode == 13) return false" tabindex="1">
                <input type="hidden" name="accion" value="buscar" tabindex="1" >
                <label class="label-icon" for="search"><i class="material-icons grey-text">search</i></label>
-               <i class="material-icons grey-text">close</i>
+              <i class="material-icons grey-text" onclick="document.getElementById('search').value='';">close</i>
              </div>
            </form>
          </div>        
@@ -74,9 +74,80 @@
           </button>  
     </nav>
   </div>
-  <br><br><br><br><br><br><br><br>
+  <br><br><br><br><br>
+
+
+<div class="row">
+  <div class='col s12 m2 l3'>
+  </div>
+  <div class='col s12 m8 l6'>
+ 
+    <ul class="collapsible popout" data-collapsible="accordion">
+        <li>
+            <div class="collapsible-header waves-effect waves-light blue darken-2 center"><b>Ver usuarios</b></div>
+            <div class="collapsible-body">
+    <table class="centered responsive highlight">
+        <thead>
+        <tr>
+            <th data-field="UserID">User ID</th>
+            <th data-field="Nombre">Nombre</th>
+            <th data-field="Apellido">Apellido</th>
+            <th data-field="Telefono">Telefono</th>
+            <th data-field="Email">Email</th>
+            <th data-field="Rol">Rol</th>
+        </tr>
+        </thead>
+
+        <tbody>
+    <?php
+        $con = mysqli_connect("localhost", "root", "", "biofacvoz")or die("Problemas al conectar");
+        // Check connection
+
+
+        $result = mysqli_query($con,"SELECT * FROM usuarios");
+
+        while($row = mysqli_fetch_array($result))
+        {
+
+        echo '<form id="'.$row['UserID'].'" method="post" action="procBusqueda.php" >
+         <input id="email" type="hidden" name="email" value="'.$row['Email'].'">
+         <input type="hidden" name="accion" value="buscar">
+         </form>';
+
+        echo '<tr onclick="document.getElementById(\''.$row['UserID'].'\').submit();">';
+        echo "<td>" . $row['UserID'] . "</td>";
+        echo "<td>" . $row['Nombre'] . "</td>";
+        echo "<td>" . $row['Apellido'] . "</td>";
+        echo "<td>" . $row['Telefono'] . "</td>";
+        echo "<td>" . $row['Email'] . "</td>";
+
+        if($row['Rol']=="2"){
+          echo "<td>Administrador</td>";
+        }else
+        {
+          echo "<td>Usuario</td>";
+        }
+        
+        echo "</tr>";
+        }
+
+        mysqli_close($con);
+        ?>
+        </tbody>
+    </table>
+
+            </div>
+        </li>
+    </ul>
+  </div>
+  <div class="col s12 m2 l3">
+  </div>
+</div>
+
   <div class="row ">
-        <div class="col s8 m8 l4 offset-l4 offset-s2 offset-m2">
+    <div class='col s12 m2 l3'>
+    </div>
+          <div class='col s12 m8 l6'>
           <div class="card "> 
             <div class="card-image">
               <img src="media/02.jpg" style="width: 100%; height: 50%;" class="responsive-img">              
@@ -89,6 +160,8 @@
             
           </div>
         </div>
+      <div class='col s12 m2 l3'>
+    </div>
     </div>
   <br><br>
 
@@ -145,8 +218,8 @@
       var $this = $(this);
       var $target = $('#' + $(this).attr('data-target'));
       $this.pushpin({
-        top: $target.offset().top,
-        bottom: $target.offset().top + $target.outerHeight() - $this.height()
+        top: $target.offset(),
+        bottom: $target.offset() + $target.outerHeight() - $this.height()
       });
     });
   </script>
