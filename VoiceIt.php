@@ -7,7 +7,7 @@ class VoiceIt {
 
     function __construct() {
 
-        $this->developerId = "5f3827c257a9457aa4926acc249f0163";
+        $this->developerId = "17041c468d0941cb8aff8c3c74be067c";
         
     }
 

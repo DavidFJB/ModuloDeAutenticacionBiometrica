@@ -4,7 +4,10 @@
 
     if(isset($_SESSION["User"])){
       header("Location: indexUser.php");
-    }    
+    }
+    else{
+      header("Location: index.php");
+    }
   }
 ?>
 
