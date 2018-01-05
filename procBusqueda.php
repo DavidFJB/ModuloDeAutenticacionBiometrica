@@ -145,7 +145,7 @@ function cargaAudio(){
           b=button;
 
                     swal({
-                    html: " <h5><b>Grabando</b></h5> <br> <button  class='btn btn-floating pulse waves-light red' type='button'><i class='material-icons left'>fiber_manual_record</i></button> <br><br> <b>Di: Mi voz es mi contraseña</b>  <br> La grabacion finalizara en 5 segundos!!",            
+                    html: " <h5><b>Grabando</b></h5> <br> <button  class='btn btn-floating pulse waves-light red' type='button'><i class='material-icons left'>fiber_manual_record</i></button> <br><br> <b>Di: Con mi voz puedo ingresar donde quiera</b>  <br> La grabacion finalizara en 5 segundos!!",            
                     text: 'Se cerrará automáticamente en 5 segundos',
                     showConfirmButton: false,
                     timer: 5800,
@@ -258,7 +258,7 @@ function cargaAudio(){
           b=button;
             
                           swal({          
-                            html: "<i class='material-icons medium blue-text'>filter_1</i> <h5><b>Graba tu huella vocal</b></h5> Primera grabacion <br><br> Pulsa para grabar<br> Despues di: <b>Mi voz es mi contraseña</b>",
+                            html: "<i class='material-icons medium blue-text'>filter_1</i> <h5><b>Graba tu huella vocal</b></h5> Primera grabacion <br><br> Pulsa para grabar<br> Despues di: <b>Con mi voz puedo ingresar donde quiera</b>",
                             type: '',
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',
@@ -299,10 +299,18 @@ function cargaAudio(){
             
                           })
 
+        }
 
-        
+
+        function cambiarEstado(){
+          document.getElementById('cambioDeEstado').submit();
+        }
+
+        function reiniciarIntentos(){
+          document.getElementById('reinicioDeIntentos').submit();
         }
   </script>
+
 
   </body>
 
@@ -339,6 +347,8 @@ function cargaAudio(){
                   $info = mysqli_fetch_assoc($result);
                   $UserID=$info['UserID'];
                   $Password=$info['Password'];
+                  $IntentosFallidos=$info['IntentosFallidos'];
+                  $Estado=$info['Estado'];
 
                   $sqlUH = "SELECT * FROM usuario_huella WHERE UserID='$UserID'";//Query en la DB biofacvoz en la tabla usuario_huella para verificar que hay huellas guardadas que hagan referencia al correo de la busqueda
 
@@ -394,10 +404,9 @@ function cargaAudio(){
                                 <div class="card">
                                   <div class="card-image">
                                     <img class="responsive-img materialboxed" data-caption="Huella Facial" src="<?php echo $path; ?>"> 
-                                  </div>
-                                  <div class="card-action">
-                                   <span class="card-title black-text"><?php echo $email; ?></span>                               
-                                 
+                                  </div>                                                                   
+                                  <div class="card-action">  
+
                                  <form id="HuellaFacial" method="post" action="procBusqueda.php" >
                                    <input id="email" type="hidden" name="email" value="<?php echo $email; ?>">
                                    <input type="hidden" name="path" value="<?php echo $path; ?>">
@@ -405,6 +414,7 @@ function cargaAudio(){
                                    <input type="hidden" name="HF_ID" value="<?php echo $HF_ID; ?>">
                                    <input type="hidden" name="accion" value="eliminarHF">     
                                  </form>
+
                                 <form id="NuevaHuellaFacial" method="post" action="procBusqueda.php" >
                                   <input id="email" type="hidden" name="email" value="<?php echo $email; ?>">
                                    <input type="hidden" name="path" value="<?php echo $path; ?>">
@@ -418,6 +428,7 @@ function cargaAudio(){
                                    <?php
                                    if($path!="media/eliminar.png"){
                                         echo '<a href="'.$path.'" download>Descargar</a>';
+
                                         echo '<a href="#!" onclick="Grabarf(this);" class="secondary-content tooltipped"  data-position="top" data-delay="50" data-tooltip="Actualizar huella facial"><i class="small material-icons red-text">refresh</i></a>';
 
                                         echo '<a href="#!" onclick="Eliminar(\'HuellaFacial\')" class="secondary-content tooltipped"  data-position="top" data-delay="50" data-tooltip="Eliminar huella facial"><i class="small material-icons red-text">delete_forever</i></a>';
@@ -428,6 +439,45 @@ function cargaAudio(){
                                    }
                                     
                                     ?>
+                                  </div>
+                                  <div class="card-content">
+                                    <span class="card-title black-text"><?php echo $email; ?></span>
+                                  </div> 
+                                  <div class="card-action"> 
+                                     <div class="card-title black-text">Intentos fallidos: <?php echo $IntentosFallidos; ?>
+                                       <a href="#!" onclick="reiniciarIntentos()" class="secondary-content tooltipped"  data-position="top" data-delay="50" data-tooltip="Reiniciar contador"><i class="small material-icons red-text">autorenew</i></a>
+                                     </div>
+
+                                     <form id="reinicioDeIntentos" method="post" action="procBusqueda.php" >
+                                      <input id="email" type="hidden" name="email" value="<?php echo $email; ?>">
+                                      <input type="hidden" name="accion" value="reinicioIntentos">
+                                     </form>
+                                     
+                                  </div>
+                                   <div class="card-action"> 
+                                     <div class="card-title black-text"> 
+                                      <?php                                      
+                                      echo "
+                                       <div class='left-align col s12 m12 l5'><a class='card-title black-text'>Estado:</a></div>
+                                        <div class='switch'>                                        
+                                          <a class='red-text'>Inactivo</a>
+                                          <label>                                    
+                                            <input type='checkbox' onclick='cambiarEstado()'";
+                                            if($Estado!='0'){
+                                            echo "checked='checked'";
+                                            }
+                                            echo ">
+                                            <span class='lever'></span>      
+                                          </label>
+                                          <a class='green-text'>Activo</a>
+                                        </div>
+                                      ";                                     
+                                     ?> 
+                                     <form id="cambioDeEstado" method="post" action="procBusqueda.php" >
+                                      <input id="email" type="hidden" name="email" value="<?php echo $email; ?>">
+                                      <input type="hidden" name="accion" value="cambiarEstado">
+                                      </form>                                      
+                                     </div>
                                   </div>
                                 </div>
                               </div>
@@ -750,6 +800,50 @@ function cargaAudio(){
                 </script>";
               }
             }
+            if($accion=="reinicioIntentos"){
+              $email=  $_POST["email"]; 
+              $sql = "UPDATE usuarios SET IntentosFallidos = 0  WHERE email='$email'";
+              $result= mysqli_query($con,$sql);
+
+              echo '<form id="enviarEmail" method="post" action="procBusqueda.php" >
+              <input id="email" type="hidden" name="email" value="'.$email.'">
+              <input type="hidden" name="accion" value="buscar">
+              </form>';
+
+
+              echo "<script>document.getElementById('enviarEmail').submit();</script>";
+            }
+            
+
+             if($accion=="cambiarEstado"){
+
+
+              $email=  $_POST["email"]; 
+
+              $sql = "SELECT * FROM usuarios WHERE email='$email'";//Query en la DB biofacvoz para revisar si hay un email igual
+              $result= mysqli_query($con,$sql);
+              $info = mysqli_fetch_assoc($result);
+
+              $estado=$info['Estado'];
+              
+              if($estado!='0'){
+                $sql = "UPDATE usuarios SET Estado = 0  WHERE email='$email'";
+              $result= mysqli_query($con,$sql);
+              }else{
+                $sql = "UPDATE usuarios SET Estado = 1  WHERE email='$email'";
+              $result= mysqli_query($con,$sql);
+              }    
+
+              echo '<form id="enviarEmail" method="post" action="procBusqueda.php" >
+              <input id="email" type="hidden" name="email" value="'.$email.'">
+              <input type="hidden" name="accion" value="buscar">
+              </form>';
+
+
+              echo "<script>document.getElementById('enviarEmail').submit();</script>";
+
+              
+             }
 
             if($accion=="eliminarUsuario"){
 
@@ -1063,21 +1157,20 @@ function cargaAudio(){
                   echo "<script>document.getElementById('enviarEmail').submit();</script>";
 
                   }else{
-
-            echo "<script language='javascript'>
-              swal({
-                title: 'Error al registrar',
-                text: '".$r1."',
-                type: 'error',
-                confirmButtonColor: '#47A6AC',
-                confirmButtonText: 'Salir',
-                allowOutsideClick: false
-                }).then(function () {
-                    document.getElementById('enviarEmail').submit();
-                })
-                </script>";
-                  
-                  }
+                  echo "<script language='javascript'>
+                  swal({
+                  title: 'Error al registrar',
+                  text: '".$r1."',
+                  type: 'error',
+                  confirmButtonColor: '#47A6AC',
+                  confirmButtonText: 'Salir',
+                  allowOutsideClick: false
+                  }).then(function () {
+                      document.getElementById('enviarEmail').submit();
+                  })
+                  </script>";
+                    
+                    }
 
             }
               

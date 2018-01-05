@@ -58,58 +58,110 @@
 		$info = mysqli_fetch_assoc($consulta);
 		$r=$info['Rol'];
 
-		if (mysqli_num_rows($consulta) > 0){
-			$conm = mysqli_connect("localhost", "root", "", "moodle")or die("Problemas al conectar");
-		    if ($conm->connect_error) {
-		      die("Connection failed: " . $conm->connect_error);
-		    }
-		    $sqlm = "SELECT * FROM mdl_user WHERE email='$email'";
-			$resultm= mysqli_query($conm,$sqlm);
-			$infom = mysqli_fetch_assoc($resultm);
-			$username= $infom['username'];
+		$sql2 = "SELECT * FROM usuarios WHERE Email='".$_POST["email"]."'";
+		$consulta2 = mysqli_query($con,$sql2);
+		$info2 = mysqli_fetch_assoc($consulta2);
 
-			if($r==2){
-			//echo "El usuario es un administrador<br>";
-			session_start();
-			$_SESSION['Admin']=$_POST["email"];
-			$_SESSION['Contador']="0";
-			$_SESSION['username']=$username;
-            $_SESSION['password']=$password;
+		$estado=$info2['Estado'];
+		$intentosFallidos=$info2['IntentosFallidos'];
+		$UserID=$info2['UserID'];
 
-			//echo $_SESSION['Admin'];
-			?>
-			<script type="text/javascript">
-				window.location="indexAdmin.php";
-			</script>
-			<?php
+		if( $estado!='0'){
+			if (mysqli_num_rows($consulta) > 0){
+				$conm = mysqli_connect("localhost", "root", "", "moodle")or die("Problemas al conectar");
+			    if ($conm->connect_error) {
+			      die("Connection failed: " . $conm->connect_error);
+			    }
+			    $sqlm = "SELECT * FROM mdl_user WHERE email='$email'";
+				$resultm= mysqli_query($conm,$sqlm);
+				$infom = mysqli_fetch_assoc($resultm);
+				$username= $infom['username'];
 
+				$sql = "UPDATE usuarios SET IntentosFallidos = '0'  WHERE UserID = '$UserID'";
+                $result= mysqli_query($con,$sql);
+
+				if($r==2){
+				//echo "El usuario es un administrador<br>";
+				session_start();
+				$_SESSION['Admin']=$_POST["email"];
+				$_SESSION['Contador']="0";
+				$_SESSION['username']=$username;
+	            $_SESSION['password']=$password;
+
+				//echo $_SESSION['Admin'];
+				?>
+				<script type="text/javascript">
+					window.location="indexAdmin.php";
+				</script>
+				<?php
+
+				}
+				else{
+					session_start();
+					$_SESSION["User"]=array();
+					$_SESSION["Admin"]=array();
+					$_SESSION["Contador"]=array();
+					$_SESSION['ContadorError']=array();
+					session_destroy();
+					echo "<script language='javascript'>
+					ingresarMoodle('$username','$password');
+					 </script>";
+				}
 			}
 			else{
-				session_start();
-				$_SESSION["User"]=array();
-				$_SESSION["Admin"]=array();
-				$_SESSION["Contador"]=array();
-				$_SESSION['ContadorError']=array();
-				session_destroy();
-				echo "<script language='javascript'>
-				ingresarMoodle('$username','$password');
-				 </script>";
+				
+	             	$sql = "UPDATE usuarios SET IntentosFallidos = IntentosFallidos+1  WHERE UserID = '$UserID'";
+                	$result= mysqli_query($con,$sql);
+
+	                if($intentosFallidos>=5){
+
+	                	$sql = "UPDATE usuarios SET Estado = 0  WHERE UserID = '$UserID'";
+                        $result= mysqli_query($con,$sql);
+
+                       	echo "<script language='javascript'>
+		        		swal({
+		        		title: 'Su cuenta ha sido bloqueada',
+		                html: 'Ha superado el numero de intentos fallidos',
+		                type: 'error',
+		                confirmButtonColor: '#47A6AC',
+		                confirmButtonText: 'Salir',
+		                allowOutsideClick: false
+		                }).then(function () {
+		                    redireccionarPagina();
+		                })
+		                </script>";
+
+	                }else{
+		             	echo "<script language='javascript'>
+		        		swal({
+		        		title: 'Error',
+		                html: 'Credenciales incorrectas',
+		                type: 'error',
+		                confirmButtonColor: '#47A6AC',
+		                confirmButtonText: 'Salir',
+		                allowOutsideClick: false
+		                }).then(function () {
+		                    redireccionarPagina();
+		                })
+		                </script>";
+	                }
 			}
 		}
 		else{
 			echo "<script language='javascript'>
-        	swal({
-        		title: 'Error',
-                html: 'Credenciales incorrectas',
-                type: 'error',
-                confirmButtonColor: '#47A6AC',
-                confirmButtonText: 'Salir',
-                allowOutsideClick: false
-                }).then(function () {
-                    redireccionarPagina();
-                })
-                </script>";
-		} 
+	        	swal({
+	        		title: 'Error',
+	                html: 'Cuenta no activa',
+	                type: 'error',
+	                confirmButtonColor: '#47A6AC',
+	                confirmButtonText: 'Salir',
+	                allowOutsideClick: false
+	                }).then(function () {
+	                    redireccionarPagina();
+	                })
+	                </script>";
+		}
+
 	}
 
 

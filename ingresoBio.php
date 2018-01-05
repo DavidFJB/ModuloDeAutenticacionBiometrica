@@ -121,12 +121,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $UserID=$info['UserID'];
         $password=$info['Password'];
         $Rol=$info['Rol'];
+        $estado=$info['Estado'];
 
         $sqlUH = "SELECT * FROM usuario_huella WHERE UserID='$UserID'";//Query en la DB biofacvoz en la tabla usuario_huella para verificar que hay huellas guardadas que hagan referencia al correo de la busqueda
 
         $resultUH= mysqli_query($con,$sqlUH);
         $num=mysqli_num_rows($resultUH);
-
+        if($estado!='0'){
         if($num>0){
 
         	$msgf="";
@@ -140,19 +141,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	        if ($text["ResponseCode"] == "SUC") {
 	        	$confidencialidadv = $text["Confidence"];
 	        	$msgv="Reconocimiento vocal exitoso";
-	        } else {
+	        } 
+          else {
 	        	$confidencialidadv=null;
 	        	$msgv="Reconocimiento vocal fallido";
 	        }
 
 	        //autenticación facial
 	        $imageData = base64_encode(file_get_contents($pathf));
-		    $id_target="saved_images/{$email}.jpg";
-		    $response = $s3->doesObjectExist($config['s3']['bucket'], "uploads/{$id_target}");
-		    if($response)
-		    {
+  		    $id_target="saved_images/{$email}.jpg";
+  		    $response = $s3->doesObjectExist($config['s3']['bucket'], "uploads/{$id_target}");
+  		    if($response)
+		      {
     			$gestor=fopen($pathf, 'rb');
-    			try { 
+    			try {
     				$s3->putObject([
     					'Bucket' => $config['s3']['bucket'],
     					'Key' => "uploads/{$pathf}",
@@ -194,6 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	            	$nCoincidencias=json_encode($coincidencias);
                 $filejson2='json/FaceDetails_target.json';
                 file_put_contents($filejson2, $nCoincidencias);
+
 	            	if(strlen($nCoincidencias)>2)
 	            	{
 	            		$confidencialidadf=$comparation['FaceMatches'][0]['Similarity'];
@@ -210,55 +213,67 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	           if(!is_null($confidencialidadf) && !is_null($confidencialidadv))
 	           {
 
-            	$conm = mysqli_connect("localhost", "root", "", "moodle")or die("Problemas al conectar");
-					    if ($conm->connect_error) {
-					      die("Connection failed: " . $conm->connect_error);
-					    }
-					    $sqlm = "SELECT * FROM mdl_user WHERE email='$email'";
-  						$resultm= mysqli_query($conm,$sqlm);
-  						$infom = mysqli_fetch_assoc($resultm);
-  						$username= $infom['username'];
+              	$conm = mysqli_connect("localhost", "root", "", "moodle")or die("Problemas al conectar");
+  					    if ($conm->connect_error) {
+  					      die("Connection failed: " . $conm->connect_error);
+  					    }
 
-              if($Rol==2){
-                //echo "El usuario es un administrador<br>";
-                $_SESSION['Admin']=$_POST["email"];
-                $_SESSION['Contador']="0";
-                $_SESSION['username']=$username;
-                $_SESSION['password']=$password;
-                //echo $_SESSION['Admin'];
-                ?>
-                <script type="text/javascript">
-                  window.location="indexAdmin.php";
-                </script>
-                <?php
+                $sql = "UPDATE usuarios SET IntentosFallidos = '0'  WHERE UserID = '$UserID'";
+                $result= mysqli_query($con,$sql);
 
-              }
-              else{
-                //$_SESSION['User']=$_POST["email"];
-                $_SESSION["User"]=array();
-                $_SESSION["Admin"]=array();
-                $_SESSION["Contador"]=array();
-                $_SESSION['ContadorError']=array();
-                session_destroy();  
+  					    $sqlm = "SELECT * FROM mdl_user WHERE email='$email'";
+    						$resultm= mysqli_query($conm,$sqlm);
+    						$infom = mysqli_fetch_assoc($resultm);
+    						$username= $infom['username'];
 
-                echo "<script language='javascript'>
-                swal({
-                    title: '¡Ingreso Exitoso!',
-                    html: 'Autenticación facial exitosa con una confidencialidad de <b>$confidencialidadf %</b> <br> autenticación vocal exitosa con una confidencialidad de <b>$confidencialidadv %</b> ',
-                    type: 'success',
-                    confirmButtonColor: '#47A6AC',
-                    confirmButtonText: 'ir a moodle',
-                    allowOutsideClick: false
-                }).then(function () {
-                    ingresarMoodle('$username','$password');
-                })
-                </script>";                
-              }
+                if($Rol==2){
+                  //echo "El usuario es un administrador<br>";
+                  $_SESSION['Admin']=$_POST["email"];
+                  $_SESSION['Contador']="0";
+                  $_SESSION['username']=$username;
+                  $_SESSION['password']=$password;
+                  //echo $_SESSION['Admin'];
+                  ?>
+                  <script type="text/javascript">
+                    window.location="indexAdmin.php";
+                  </script>
+                  <?php
+
+                }
+                else{
+                  //$_SESSION['User']=$_POST["email"];
+                  $_SESSION["User"]=array();
+                  $_SESSION["Admin"]=array();
+                  $_SESSION["Contador"]=array();
+                  $_SESSION['ContadorError']=array();
+                  session_destroy();  
+
+                  echo "<script language='javascript'>
+                  swal({
+                      title: '¡Ingreso Exitoso!',
+                      html: 'Autenticación facial exitosa con una confidencialidad de <b>$confidencialidadf %</b> <br> autenticación vocal exitosa con una confidencialidad de <b>$confidencialidadv %</b> ',
+                      type: 'success',
+                      confirmButtonColor: '#47A6AC',
+                      confirmButtonText: 'ir a moodle',
+                      allowOutsideClick: false
+                  }).then(function () {
+                      ingresarMoodle('$username','$password');
+                  })
+                  </script>";                
+                }
 
 	           }
 	                else
 	                {
                       $_SESSION['ContadorError']=$_SESSION['ContadorError']-1;
+
+                      $sql = "UPDATE usuarios SET IntentosFallidos = IntentosFallidos+1  WHERE UserID = '$UserID'";
+                      $result= mysqli_query($con,$sql);
+
+                      $sql = "INSERT INTO ingreso_fallido (UserID, FechaHora) VALUES ('$UserID', now())";
+                      $result= mysqli_query($con,$sql);
+
+
                       if($_SESSION['ContadorError']==0){
                         echo "<script language='javascript'> 
                         swal({
@@ -370,7 +385,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </script>";
         }
 
-
+      }else{
+          echo "<script language='javascript'>
+          swal({
+            title: 'La cuenta está bloqueda',
+                html: 'por favor contacte al siguente numero <b>3174837626</b> o al correo <b>jdkdhd@jdjd.com</b> para la creacion de las huellas biometricas correspondientes',
+                type: 'error',
+                confirmButtonColor: '#47A6AC',
+                confirmButtonText: 'Salir',
+                allowOutsideClick: false
+                }).then(function () {
+                    redireccionarPagina();
+                })
+                </script>";
+      }
 
     }else{
     	echo "<script language='javascript'>

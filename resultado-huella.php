@@ -527,9 +527,6 @@
                                 <source src="'.$path1.'" type="audio/wav">
                               </audio>
                             </div>
-                          <div class="card-action">
-                            <a href="#">Administrar</a>
-                          </div>
                         </div>
                       </div>
                     <div class="col s12 m2 l3">
@@ -549,9 +546,6 @@
                                 <source src="'.$path1.'" type="audio/wav">
                               </audio>
                             </div>
-                          <div class="card-action">
-                            <a href="#">Administrar</a>
-                          </div>
                         </div>
                       </div>
                     <div class="col s12 m2 l3">
@@ -572,9 +566,6 @@
                                 <source src="'.$path2.'" type="audio/wav">
                               </audio>
                             </div>
-                          <div class="card-action">
-                            <a href="#">Administrar</a>
-                          </div>
                         </div>
                       </div>
                     <div class="col s12 m2 l3">
@@ -594,9 +585,6 @@
                                 <source src="'.$path2.'" type="audio/wav">
                               </audio>
                             </div>
-                          <div class="card-action">
-                            <a href="#">Administrar</a>
-                          </div>
                         </div>
                       </div>
                     <div class="col s12 m2 l3">
@@ -617,9 +605,6 @@
                                 <source src="'.$path3.'" type="audio/wav">
                               </audio>
                             </div>
-                          <div class="card-action">
-                            <a href="#">Administrar</a>
-                          </div>
                         </div>
                       </div>
                     <div class="col s12 m2 l3">
@@ -638,9 +623,6 @@
                                 <source src="'.$path3.'" type="audio/wav">
                               </audio>
                             </div>
-                          <div class="card-action">
-                            <a href="#">Administrar</a>
-                          </div>
                         </div>
                       </div>
                     <div class="col s12 m2 l3">
@@ -705,6 +687,9 @@
 
                           $sqlus = "INSERT INTO usuario_huella (UserID, HF_ID, HV1_ID, HV2_ID,  HV3_ID) VALUES ('$userid', '$idf', '$idv1', '$idv2', $idv3)";
                           mysqli_query($con,$sqlus);
+
+                          $sql = "UPDATE usuarios SET Estado = 1  WHERE UserID = '$userid'";
+                          $result= mysqli_query($con,$sql);
 
 
                     }else{

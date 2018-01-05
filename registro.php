@@ -329,7 +329,7 @@
 
                     $response = $myVoiceIt->createUser($email, $password, $firsName, $lastName, $tel, "", "");
 
-                    $sql = "INSERT INTO usuarios (Nombre, Apellido, Email, Password,  Telefono, Rol) VALUES ('$firsName', '$lastName', '$email', '$password', $tel, '001')";
+                    $sql = "INSERT INTO usuarios (Nombre, Apellido, Email, Password,  Telefono, IntentosFallidos, Estado, Rol) VALUES ('$firsName', '$lastName', '$email', '$password', $tel, '0', '0','001')";
 
                     $text = guardarJson($response);
 

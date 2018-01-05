@@ -95,6 +95,8 @@
             <th data-field="Telefono">Telefono</th>
             <th data-field="Email">Email</th>
             <th data-field="Rol">Rol</th>
+            <th data-field="Ingresos_fallidos">Ingresos fallidos</th>
+            <th data-field="Estado">Estado</th>
         </tr>
         </thead>
 
@@ -121,6 +123,7 @@
         echo "<td>" . $row['Telefono'] . "</td>";
         echo "<td>" . $row['Email'] . "</td>";
 
+
         if($row['Rol']=="2"){
           echo "<td>Administrador</td>";
         }else
@@ -128,6 +131,19 @@
           echo "<td>Usuario</td>";
         }
         
+
+        echo "<td>" . $row['IntentosFallidos'] . "</td>";
+
+
+        if($row['Estado']=="0"){
+          echo "<td class='red-text'>Inactivo</td>";
+        }else
+        {
+          echo "<td class='green-text'>Activo</td>";
+        }
+        
+
+
         echo "</tr>";
         }
 

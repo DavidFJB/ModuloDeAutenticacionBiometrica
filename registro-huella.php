@@ -304,7 +304,7 @@ function cargaAudio(){
                         if(idioma=="es-CO"){
 
                           swal({
-                            html: "<i class='material-icons medium blue-text'>music_note</i> <h5><b>Graba tu huella vocal</b></h5> <br> Realiza tu grabación <br><br> Pulsa para grabar<br> Despues di: <b>Mi voz es mi contraseña</b>",
+                            html: "<i class='material-icons medium blue-text'>music_note</i> <h5><b>Graba tu huella vocal</b></h5> <br> Realiza tu grabación <br><br> Pulsa para grabar<br> Despues di: <b>Con mi voz puedo ingresar donde quiera</b>",
                               type: '',
                               showCancelButton: false,
                               confirmButtonColor: '#3085d6',
@@ -348,7 +348,7 @@ function cargaAudio(){
                       if(idioma=="es-CO"){
             
                           swal({          
-                            html: "<i class='material-icons medium blue-text'>filter_1</i> <h5><b>Graba tu huella vocal</b></h5> Primera grabacion <br><br> Pulsa para grabar<br> Despues di: <b>Mi voz es mi contraseña</b>",
+                            html: "<i class='material-icons medium blue-text'>filter_1</i> <h5><b>Graba tu huella vocal</b></h5> Primera grabacion <br><br> Pulsa para grabar<br> Despues di: <b>Con mi voz puedo ingresar donde quiera</b>",
                             type: '',
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',
@@ -368,7 +368,7 @@ function cargaAudio(){
             
                                               setTimeout(function(){
                                                 swal({
-                                                    html: "<i class='material-icons medium blue-text'>filter_2</i> <h5><b>Graba tu huella vocal</b></h5> <br> Segunda grabacion <br><br> Pulsa para grabar<br> Despues di: <b>Mi voz es mi contraseña</b>",
+                                                    html: "<i class='material-icons medium blue-text'>filter_2</i> <h5><b>Graba tu huella vocal</b></h5> <br> Segunda grabacion <br><br> Pulsa para grabar<br> Despues di: <b>Con mi voz puedo ingresar donde quiera</b>",
                                                     type: '',
                                                     showCancelButton: false,
                                                     confirmButtonColor: '#3085d6',
@@ -388,7 +388,7 @@ function cargaAudio(){
             
                                                                     setTimeout(function(){
                                                                       swal({
-                                                                        html: "<i class='material-icons medium blue-text'>filter_3</i> <h5><b>Graba tu huella vocal</b></h5> <br> Tercera grabacion <br><br> Pulsa para grabar<br> Despues di: <b>Mi voz es mi contraseña</b>",
+                                                                        html: "<i class='material-icons medium blue-text'>filter_3</i> <h5><b>Graba tu huella vocal</b></h5> <br> Tercera grabacion <br><br> Pulsa para grabar<br> Despues di: <b>Con mi voz puedo ingresar donde quiera</b>",
                                                                           type: '',
                                                                           showCancelButton: false,
                                                                           confirmButtonColor: '#3085d6',
@@ -563,7 +563,7 @@ function cargaAudio(){
 
             if(idioma=="es-CO"){
                     swal({
-                    html: " <h5><b>Grabando</b></h5> <br> <button  class='btn btn-floating pulse waves-light red' type='button'><i class='material-icons left'>fiber_manual_record</i></button> <br><br> <b>Di: Mi voz es mi contraseña</b>  <br> La grabacion finalizara en 5 segundos!!",            
+                    html: " <h5><b>Grabando</b></h5> <br> <button  class='btn btn-floating pulse waves-light red' type='button'><i class='material-icons left'>fiber_manual_record</i></button> <br><br> <b>Di: Con mi voz puedo ingresar donde quiera</b>  <br> La grabacion finalizara en 5 segundos!!",            
                     text: 'Se cerrará automáticamente en 5 segundos',
                     showConfirmButton: false,
                     timer: 5800,
